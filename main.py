@@ -2,7 +2,7 @@ import DataUtils as du
 import logging
 import numpy as np
 import torch as tr
-SourceDir = "D:\G\TheoremProving\holstep"
+SourceDir = "Full path of dataset directory"
 
 parser = du.DataParser(SourceDir, True,1)
 print(parser.display_stats(parser.train_conjectures))
