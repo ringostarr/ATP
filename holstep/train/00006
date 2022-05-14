@@ -1,0 +1,25 @@
+N Ssrnat.oddS
+C |- (!n. ((odd (SUC n)) = (~ (odd n))))
+T c= codd cSUC f0 c~ codd f0
+D ODD
+A |- (((ODD (NUMERAL _0)) = F) /\ (!n. ((ODD (SUC n)) = (~ (ODD n)))))
+T c/\ c= cODD cNUMERAL c_0 cF ! c= cODD cSUC b0 c~ cODD b0
+D Ssrnat.odd
+A |- (odd = ODD)
+T c= part codd part cODD
++ |- (((ODD (SUC n)) = (~ (ODD n))) = ((odd (SUC n)) = (~ (odd n))))
+T c= c= cODD cSUC f0 c~ cODD f0 c= codd cSUC f0 c~ codd f0
+- |- (T = ((~ (ODD n)) = (~ (ODD n))))
+T c= cT c= c~ cODD f0 c~ cODD f0
+- |- (((~ (ODD n)) = (~ (ODD n))) = ((ODD (SUC n)) = (~ (ODD n))))
+T c= c= c~ cODD f0 c~ cODD f0 c= cODD cSUC f0 c~ cODD f0
+- |- ((ODD (NUMERAL _0)) = F)
+T c= cODD cNUMERAL c_0 cF
++ |- (((odd (SUC n)) = (~ (odd n))) = T)
+T c= c= codd cSUC f0 c~ codd f0 cT
+- |- ((x = x) = T)
+T c= c= f0 f0 cT
++ |- (((!n. ((ODD (SUC n)) = (~ (ODD n)))) ==> ((\n. ((ODD (SUC n)) = (~ (ODD n)))) n)) = ((\n. ((ODD (SUC n)) = (~ (ODD n)))) n))
+T c= c==> ! c= cODD cSUC b0 c~ cODD b0 * / c= cODD cSUC b0 c~ cODD b0 f0 * / c= cODD cSUC b0 c~ cODD b0 f0
++ |- ((ODD (SUC n)) = (~ (ODD n)))
+T c= cODD cSUC f0 c~ cODD f0

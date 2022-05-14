@@ -1,0 +1,22 @@
+N CONTINUOUS_IMP_REAL_MEASURABLE_ON
+C |- (!f. (((real_continuous_on f) UNIV) ==> ((real_measurable_on f) UNIV)))
+T c==> creal_continuous_on f0 part cUNIV creal_measurable_on f0 part cUNIV
+D TRUTH
+A |- T
+T cT
+D IMAGE_LIFT_UNIV
+A |- (((IMAGE lift) UNIV) = UNIV)
+T c= * * part cIMAGE part clift part cUNIV part cUNIV
+D CONTINUOUS_IMP_MEASURABLE_ON
+A |- (!f. (((continuous_on f) UNIV) ==> ((measurable_on f) UNIV)))
+T c==> ccontinuous_on f0 part cUNIV cmeasurable_on f0 part cUNIV
+D REAL_CONTINUOUS_ON
+A |- (!f. (!s. (((real_continuous_on f) s) = ((continuous_on (lift o (f o drop))) ((IMAGE lift) s)))))
+T c= creal_continuous_on f0 f1 ccontinuous_on * * part co part clift * * part co f0 part cdrop * * part cIMAGE part clift f1
+D real_measurable_on
+A |- (!f. (!s. (((real_measurable_on f) s) = ((measurable_on (lift o (f o drop))) ((IMAGE lift) s)))))
+T c= creal_measurable_on f0 f1 cmeasurable_on * * part co part clift * * part co f0 part cdrop * * part cIMAGE part clift f1
++ |- ((\s. (((real_measurable_on f) s) = ((measurable_on (lift o (f o drop))) ((IMAGE lift) s)))) s)
+T * / c= creal_measurable_on f0 b0 cmeasurable_on * * part co part clift * * part co f0 part cdrop * * part cIMAGE part clift b0 f1
+- |- ((t ==> t) = T)
+T c= c==> f0 f0 cT

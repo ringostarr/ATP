@@ -1,0 +1,29 @@
+The dataset contains 9999 training files and 1411 testing files.
+
+Each file in the dataset contains a number of training examples
+together with the conjecture and dependencies on which the training
+example may be conditioned.
+
+There are 2013046 training examples and 196030 testing examples in total.
+
+Each file consists of a conjecture block, a number of dependency
+blocks, and a number of training/testing example blocks.
+
+The conjecture block starts with an 'N' and consists of 3 lines:
+
+N <name of conjecture>
+C <text representation of the conjecture>
+T <tokenization of the conjecture>
+
+Each dependency block starts with a 'D' and consists of 3 lines:
+
+D <name of dependency>
+A <text representation of the dependency>
+T <tokenization of the conjecture>
+
+Each training/testing example starts with the symbol '+' or '-'
+where '+' means useful in the final proof and '-' not useful
+and consists of 2 lines:
+
++ <text representation of the intermediate step>
+T <tokenization of the intermediate step>

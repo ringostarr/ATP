@@ -1,0 +1,17 @@
+N REAL_IMP_CNJ
+C |- (!z. ((real z) ==> ((cnj z) = z)))
+T c==> creal f0 c= ccnj f0 f0
+D TRUTH
+A |- T
+T cT
+D REAL_CNJ
+A |- (!z. ((real z) = ((cnj z) = z)))
+T c= creal f0 c= ccnj f0 f0
++ |- ((t ==> t) = T)
+T c= c==> f0 f0 cT
+- |- (((x = x) ==> p) = p)
+T c= c==> c= f0 f0 f1 f1
++ |- ((!z. t) = t)
+T c= ! f0 f0
+- |- ((x = x) = T)
+T c= c= f0 f0 cT

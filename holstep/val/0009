@@ -1,0 +1,76 @@
+N AFF_DIM_CONVEX_INTER_NONEMPTY_INTERIOR
+C |- (!s. (!t. (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim (s INTER t)) = (aff_dim s)))))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part cINTER f0 f1 caff_dim f0
+D TRUTH
+A |- T
+T cT
+D AFF_DIM_AFFINE_HULL
+A |- (!s. ((aff_dim ((hull affine) s)) = (aff_dim s)))
+T c= caff_dim * * part chull part caffine f0 caff_dim f0
+D AFFINE_HULL_CONVEX_INTER_NONEMPTY_INTERIOR
+A |- (!s. (!t. (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> (((hull affine) (s INTER t)) = ((hull affine) s)))))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= * * part chull part caffine * * part cINTER f0 f1 * * part chull part caffine f0
++ |- ((aff_dim s) = (aff_dim ((hull affine) s)))
+T c= caff_dim f0 caff_dim * * part chull part caffine f0
++ |- ((t ==> T) = T)
+T c= c==> f0 cT cT
+- |- ((t ==> t) = T)
+T c= c==> f0 f0 cT
++ |- (((!q'. ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) = p') ==> ((p' ==> (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = q')) ==> ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))) = (p' ==> q'))))) ==> ((\q'. ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) = p') ==> ((p' ==> (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = q')) ==> ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))) = (p' ==> q'))))) q')) = ((\q'. ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) = p') ==> ((p' ==> (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = q')) ==> ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))) = (p' ==> q'))))) q'))
+T c= c==> ! c==> c= c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY f2 c==> c==> f2 c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 b0 c= c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 c==> f2 b0 * / c==> c= c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY f2 c==> c==> f2 c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 b0 c= c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 c==> f2 b0 f3 * / c==> c= c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY f2 c==> c==> f2 c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 b0 c= c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 c==> f2 b0 f3
++ |- ((!t. t) = t)
+T c= ! f0 f0
++ |- ((\p'. (!q'. ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) = p') ==> ((p' ==> (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = q')) ==> ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))) = (p' ==> q')))))) p')
+T * / ! c==> c= c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY b0 c==> c==> b0 c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 b1 c= c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 c==> b0 b1 f2
++ ((aff_dim ((hull affine) s)) = (aff_dim s)) |- ((aff_dim s) = (aff_dim ((hull affine) s)))
+T c==> c= caff_dim * * part chull part caffine f0 caff_dim f0 c= caff_dim f0 caff_dim * * part chull part caffine f0
++ |- ((!s. (!t. (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))))) = (!s. (!t. (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim (s INTER t)) = (aff_dim s))))))
+T c= ! ! c==> c/\ cconvex b0 c~ c= * * part cINTER b0 * part cinterior b1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER b0 b1 caff_dim * * part chull part caffine b0 ! ! c==> c/\ cconvex b0 c~ c= * * part cINTER b0 * part cinterior b1 part cEMPTY c= caff_dim * * part cINTER b0 b1 caff_dim b0
++ |- ((\t. (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> (((hull affine) (s INTER t)) = ((hull affine) s)))) t)
+T * / c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior b0 part cEMPTY c= * * part chull part caffine * * part cINTER f0 b0 * * part chull part caffine f0 f1
++ ((aff_dim s) = (aff_dim ((hull affine) s))) |- ((aff_dim ((hull affine) s)) = (aff_dim s))
+T c==> c= caff_dim f0 caff_dim * * part chull part caffine f0 c= caff_dim * * part chull part caffine f0 caff_dim f0
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- (((s INTER (interior t)) = EMPTY) = F)
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c= * * part cINTER f0 * part cinterior f1 part cEMPTY cF
++ |- (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = T))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 cT
++ |- ((!q'. ((p = p') ==> ((p' ==> (q = q')) ==> ((p ==> q) = (p' ==> q'))))) = T)
+T c= ! c==> c= f0 f1 c==> c==> f1 c= f2 b0 c= c==> f0 f2 c==> f1 b0 cT
+- |- ((\s. ((aff_dim ((hull affine) s)) = (aff_dim s))) s)
+T * / c= caff_dim * * part chull part caffine b0 caff_dim b0 f0
++ |- ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) = p') ==> ((p' ==> (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = q')) ==> ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))) = (p' ==> q'))))
+T c==> c= c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY f2 c==> c==> f2 c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 f3 c= c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 c==> f2 f3
++ ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) /\ (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = T))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c/\ c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 cT
++ |- (((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> (((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s))) = T)) ==> ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))) = (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> T))) = ((((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> ((aff_dim ((hull affine) (s INTER t))) = (aff_dim ((hull affine) s)))) = (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> T)))
+T c= c==> c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 cT c= c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY cT c= c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= caff_dim * * part chull part caffine * * part cINTER f0 f1 caff_dim * * part chull part caffine f0 c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY cT
++ |- ((\s. (!t. (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) ==> (((hull affine) (s INTER t)) = ((hull affine) s))))) s)
+T * / ! c==> c/\ cconvex b0 c~ c= * * part cINTER b0 * part cinterior b1 part cEMPTY c= * * part chull part caffine * * part cINTER b0 b1 * * part chull part caffine b0 f0
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- (((~ (EMPTY = (s INTER (interior t)))) ==> ((EMPTY = (s INTER (interior t))) = F)) = ((EMPTY = (s INTER (interior t))) = F))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c==> c~ c= part cEMPTY * * part cINTER f0 * part cinterior f1 c= c= part cEMPTY * * part cINTER f0 * part cinterior f1 cF c= c= part cEMPTY * * part cINTER f0 * part cinterior f1 cF
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- (T = ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= cT c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY
++ |- ((x = x) = T)
+T c= c= f0 f0 cT
+- |- (((!s. ((aff_dim ((hull affine) s)) = (aff_dim s))) ==> ((\s. ((aff_dim ((hull affine) s)) = (aff_dim s))) s)) = ((\s. ((aff_dim ((hull affine) s)) = (aff_dim s))) s))
+T c= c==> ! c= caff_dim * * part chull part caffine b0 caff_dim b0 * / c= caff_dim * * part chull part caffine b0 caff_dim b0 f0 * / c= caff_dim * * part chull part caffine b0 caff_dim b0 f0
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- ((convex s) = T)
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= cconvex f0 cT
+- (EMPTY = (s INTER (interior t))) |- ((s INTER (interior t)) = EMPTY)
+T c==> c= part cEMPTY * * part cINTER f0 * part cinterior f1 c= * * part cINTER f0 * part cinterior f1 part cEMPTY
+- |- ((t /\ t) = t)
+T c= c/\ f0 f0 f0
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- ((EMPTY = (s INTER (interior t))) = F)
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c= part cEMPTY * * part cINTER f0 * part cinterior f1 cF
+- |- ((~ F) = T)
+T c= c~ cF cT
+- ((s INTER (interior t)) = EMPTY) |- (EMPTY = (s INTER (interior t)))
+T c==> c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= part cEMPTY * * part cINTER f0 * part cinterior f1
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- (((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) /\ (((hull affine) (s INTER t)) = ((hull affine) s)))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c/\ c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= * * part chull part caffine * * part cINTER f0 f1 * * part chull part caffine f0
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- (((~ ((s INTER (interior t)) = EMPTY)) ==> (((s INTER (interior t)) = EMPTY) = F)) = (((s INTER (interior t)) = EMPTY) = F))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c==> c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c= c= * * part cINTER f0 * part cinterior f1 part cEMPTY cF c= c= * * part cINTER f0 * part cinterior f1 part cEMPTY cF
+- |- ((T /\ t) = t)
+T c= c/\ cT f0 f0
+- ((convex s) /\ (~ ((s INTER (interior t)) = EMPTY))) |- (~ (EMPTY = (s INTER (interior t))))
+T c==> c/\ cconvex f0 c~ c= * * part cINTER f0 * part cinterior f1 part cEMPTY c~ c= part cEMPTY * * part cINTER f0 * part cinterior f1

@@ -1,0 +1,513 @@
+N LEFT_INVERSE_LINEAR
+C |- (!f. (!g. (((linear f) /\ ((g o f) = I)) ==> (linear g))))
+T c==> c/\ clinear f0 c= * * part co f1 f0 part cI clinear f1
+D TRUTH
+A |- T
+T cT
+D ETA_AX
+A |- (!t. ((\x. (t x)) = t))
+T c= / * f0 b0 f0
+D FUN_EQ_THM
+A |- (!f. (!g. ((f = g) = (!x. ((f x) = (g x))))))
+T c= c= f0 f1 ! c= * f0 b0 * f1 b0
+D EXCLUDED_MIDDLE
+A |- (!t. (t \/ (~ t)))
+T c\/ f0 c~ f0
+D BOOL_CASES_AX
+A |- (!t. ((t = T) \/ (t = F)))
+T c\/ c= f0 cT c= f0 cF
+D NOT_CLAUSES
+A |- ((!t. ((~ (~ t)) = t)) /\ (((~ T) = F) /\ ((~ F) = T)))
+T c/\ ! c= c~ c~ b0 b0 c/\ c= c~ cT cF c= c~ cF cT
+D NOT_FORALL_THM
+A |- (!P. ((~ (!x. (P x))) = (?x. (~ (P x)))))
+T c= c~ ! * f0 b0 c? / c~ * f0 b0
+D o_THM
+A |- (!f. (!g. (!x. (((f o g) x) = (f (g x))))))
+T c= co f0 f1 f2 * f0 * f1 f2
+D I_THM
+A |- (!x. ((I x) = x))
+T c= cI f0 f0
+D LINEAR_INJECTIVE_ISOMORPHISM
+A |- (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x)))))))
+T c==> c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 c? / c/\ clinear b0 c/\ ! c= * b0 * f0 b1 b1 ! c= * f0 * b0 b1 b1
++ |- (((!x. ((I x) = x)) ==> ((\x. ((I x) = x)) x)) = ((\x. ((I x) = x)) x))
+T c= c==> ! c= cI b0 b0 * / c= cI b0 b0 f0 * / c= cI b0 b0 f0
++ (!x. ((g (f x)) = x)), (linear f) |- ((((\y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) y) ==> F) = T)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c= c==> * / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 f3 cF cT
++ |- ((((linear f) /\ ((g o f) = I)) ==> (linear g)) = T)
+T c= c==> c/\ clinear f0 c= * * part co f1 f0 part cI clinear f1 cT
++ (~ ((g x) = (h x))) |- (~ ((g x) = ((I h) x)))
+T c==> c~ c= * f0 f1 * f2 f1 c~ c= * f0 f1 cI f2 f1
++ (!x. ((g (f x)) = x)), (~ ((g x) = (h x))), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ ((g x) = (h x))) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 f2 * f3 f2 c==> c/\ clinear f3 c/\ ! c= * f3 * f1 b0 b0 ! c= * f1 * f3 b0 b0 c/\ c~ c= * f0 f2 * f3 f2 cF
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))), (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) /\ ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c/\ c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (!x. (((I f) ((I h) x)) = x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 ! c= cI f1 cI f0 b0 b0
+- |- ((\t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) t1)
+T * / ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 f0
++ ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((g ((I f) x)) = (g ((I f) y)))
+T c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 c= * f3 cI f0 f1 * f3 cI f0 f2
++ |- (((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F) = ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))))
+T c= c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1
+- |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
++ (!x. ((g (f x)) = x)), (linear f) |- ((((\x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) x) ==> F) = T)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c= c==> * / c? / c\/ c~ clinear f1 c/\ c= * f1 b0 * f1 b1 c~ c= b0 b1 f2 cF cT
++ (!x. ((g (f x)) = x)) |- (!x. ((g ((I f) x)) = x))
+T c==> ! c= * f0 * f1 b0 b0 ! c= * f0 cI f1 b0 b0
++ |- ((a \/ b) = ((~ b) ==> a))
+T c= c\/ f0 f1 c==> c~ f1 f0
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))), (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) /\ ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c/\ c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ |- (((!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) ==> ((\f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) f)) = ((\f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) f))
+T c= c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 * / c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 f0 * / c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 f0
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((g ((I f) ((I h) x))) = (g x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= * f2 cI f1 cI f0 f3 * f2 f3
++ (!x. ((g (f x)) = x)), (linear f), ((\y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) y) |- (((\y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) y) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> * / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 f3 c/\ * / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 f3 cF
+- |- ((\g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) g)
+T * / c==> clinear f0 c==> ! c= * b0 * f0 b1 b1 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b1 * f0 b2 c= b1 b2 cF f1
++ |- ((\h. (!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))) h)
+T * / ! ! c==> clinear b2 c==> ! c= * b1 * b2 b3 b3 c==> c/\ clinear b0 c/\ ! c= * b0 * b2 b3 b3 ! c= * b2 * b0 b3 b3 c==> c~ ! c= * b1 b3 * b0 b3 cF f0
+- |- ((_186772 = _186773) ==> ((linear _186773) \/ (~ (linear _186772))))
+T c==> c= f0 f1 c\/ clinear f1 c~ clinear f0
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((!x. (((I h) ((I f) x)) = x)) ==> ((\x. (((I h) ((I f) x)) = x)) _186770)) = ((\x. (((I h) ((I f) x)) = x)) _186770))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= c==> ! c= cI f0 cI f1 b0 b0 * / c= cI f0 cI f1 b0 b0 f2 * / c= cI f0 cI f1 b0 b0 f2
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((g ((I f) y)) = y) = (((g ((I f) y)) = x) /\ ((g ((I f) y)) = y)))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c= c= * f0 cI f1 f3 f3 c/\ c= * f0 cI f1 f3 f2 c= * f0 cI f1 f3 f3
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((((I f) ((I h) x)) = x) ==> ((g ((I f) ((I h) x))) = (g x))) = ((g ((I f) ((I h) x))) = (g x)))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= c==> c= cI f1 cI f0 f2 f2 c= * f3 cI f1 cI f0 f2 * f3 f2 c= * f3 cI f1 cI f0 f2 * f3 f2
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((((g x) = ((I h) x)) ==> F) = F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c= c==> c= * f0 f3 cI f2 f3 cF cF
+- |- ((t ==> t) = T)
+T c= c==> f0 f0 cT
+- |- ((p \/ p) = p)
+T c= c\/ f0 f0 f0
+- (!x. ((g (f x)) = x)), (~ (!x. ((g x) = (h x)))), (linear f), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- F
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ ! c= * f0 b0 * f2 b0 c==> clinear f1 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 f3 c~ c= f2 f3 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (linear g))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 clinear f0
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((\x. ((h (f x)) = x)) x)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 * / c= * f0 * f1 b0 b0 f2
+- |- ((\t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) t3)
+T * / c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 f2
++ |- ((\f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) f)
+T * / c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 f0
+- |- (((~ p) ==> p) = p)
+T c= c==> c~ f0 f0 f0
+- |- ((!h. t) = t)
+T c= ! f0 f0
+- (~ (((I f) x) = ((I f) y))), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ (((I f) x) = ((I f) y))) /\ (((I f) x) = ((I f) y)))
+T c==> c~ c= cI f0 f1 cI f0 f2 c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 c/\ c~ c= cI f0 f1 cI f0 f2 c= cI f0 f1 cI f0 f2
+- (linear f) |- ((linear f) = T)
+T c==> clinear f0 c= clinear f0 cT
+- (!x. ((g (f x)) = x)), (~ (!x. ((g x) = (h x)))), (linear f), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ (!x. ((g x) = (h x)))) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ ! c= * f0 b0 * f2 b0 c==> clinear f1 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c/\ c~ ! c= * f0 b0 * f2 b0 cF
+- (!x. ((g (f x)) = x)), (~ F), (~ ((g x) = (h x))), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ F) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ cF c==> c~ c= * f0 f2 * f3 f2 c==> c/\ clinear f3 c/\ ! c= * f3 * f1 b0 b0 ! c= * f1 * f3 b0 b0 c/\ c~ cF cF
++ |- (((~ ((g x) = (h x))) ==> F) = ((g x) = (h x)))
+T c= c==> c~ c= * f0 f1 * f2 f1 cF c= * f0 f1 * f2 f1
+- (!x. ((g (f x)) = x)), (linear f) |- ((!x. ((g (f x)) = x)) /\ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c/\ ! c= * f0 * f1 b0 b0 c/\ clinear f1 ! ! c==> c= * f1 b0 * f1 b1 c= b0 b1
++ |- ((f x) = ((I f) x))
+T c= * f0 f1 cI f0 f1
+- |- ((t ==> F) = (~ t))
+T c= c==> f0 cF c~ f0
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (x = y)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c= f2 f3
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((I f) ((I h) _186771)) = _186771)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= cI f1 cI f0 f2 f2
++ |- ((!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (!x. ((g x) = (h x)))))))) = T)
+T c= ! ! c==> clinear b1 c==> ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 c/\ ! c= * f0 * b1 b2 b2 ! c= * b1 * f0 b2 b2 ! c= * b0 b2 * f0 b2 cT
++ |- (((!g. (!x. (((f o g) x) = (f (g x))))) ==> ((\g. (!x. (((f o g) x) = (f (g x))))) g)) = ((\g. (!x. (((f o g) x) = (f (g x))))) g))
+T c= c==> ! ! c= co f0 b0 b1 * f0 * b0 b1 * / ! c= co f0 b0 b1 * f0 * b0 b1 f1 * / ! c= co f0 b0 b1 * f0 * b0 b1 f1
++ |- (p = ((~ p) ==> F))
+T c= f0 c==> c~ f0 cF
+- |- ((?y. t) = t)
+T c= c? / f0 f0
+- |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) ==> (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))
+T c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
+- |- (((g _186778) = (g _186779)) \/ (~ (_186778 = _186779)))
+T c\/ c= * f0 f1 * f0 f2 c~ c= f1 f2
++ |- ((!g. (((linear f) /\ ((g o f) = I)) ==> (linear g))) = T)
+T c= ! c==> c/\ clinear f0 c= * * part co b0 f0 part cI clinear b0 cT
++ ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((((I f) x) = ((I f) y)) ==> ((g ((I f) x)) = (g ((I f) y)))) = ((g ((I f) x)) = (g ((I f) y))))
+T c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 c= c==> c= cI f0 f1 cI f0 f2 c= * f3 cI f0 f1 * f3 cI f0 f2 c= * f3 cI f0 f1 * f3 cI f0 f2
++ |- (((!h. (!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))) ==> ((\h. (!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))) h)) = ((\h. (!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))) h))
+T c= c==> ! ! ! c==> clinear b2 c==> ! c= * b1 * b2 b3 b3 c==> c/\ clinear b0 c/\ ! c= * b0 * b2 b3 b3 ! c= * b2 * b0 b3 b3 c==> c~ ! c= * b1 b3 * b0 b3 cF * / ! ! c==> clinear b2 c==> ! c= * b1 * b2 b3 b3 c==> c/\ clinear b0 c/\ ! c= * b0 * b2 b3 b3 ! c= * b2 * b0 b3 b3 c==> c~ ! c= * b1 b3 * b0 b3 cF f0 * / ! ! c==> clinear b2 c==> ! c= * b1 * b2 b3 b3 c==> c/\ clinear b0 c/\ ! c= * b0 * b2 b3 b3 ! c= * b2 * b0 b3 b3 c==> c~ ! c= * b1 b3 * b0 b3 cF f0
++ |- (((!f. (!g. (!x. (((f o g) x) = (f (g x)))))) ==> ((\f. (!g. (!x. (((f o g) x) = (f (g x)))))) f)) = ((\f. (!g. (!x. (((f o g) x) = (f (g x)))))) f))
+T c= c==> ! ! ! c= co b0 b1 b2 * b0 * b1 b2 * / ! ! c= co b0 b1 b2 * b0 * b1 b2 f0 * / ! ! c= co b0 b1 b2 * b0 * b1 b2 f0
+- |- (((!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) ==> ((\g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) g)) = ((\g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) g))
+T c= c==> ! c==> clinear f0 c==> ! c= * b0 * f0 b1 b1 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b1 * f0 b2 c= b1 b2 cF * / c==> clinear f0 c==> ! c= * b0 * f0 b1 b1 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b1 * f0 b2 c= b1 b2 cF f1 * / c==> clinear f0 c==> ! c= * b0 * f0 b1 b1 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b1 * f0 b2 c= b1 b2 cF f1
+- |- ((!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))))) = T)
+T c= ! c==> clinear f0 c==> ! c= * b0 * f0 b1 b1 c/\ clinear f0 ! ! c==> c= * f0 b1 * f0 b2 c= b1 b2 cT
++ ((\h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))) h) |- ((((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (linear g)) = (linear g))
+T c==> * / c/\ clinear b0 c/\ ! c= * b0 * f0 b1 b1 ! c= * f0 * b0 b1 b1 f1 c= c==> c/\ clinear f1 c/\ ! c= * f1 * f0 b0 b0 ! c= * f0 * f1 b0 b0 clinear f2 clinear f2
+- (~ (((I f) ((I h) x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ (((I f) ((I h) x)) = x)) /\ (((I f) ((I h) x)) = x))
+T c==> c~ c= cI f0 cI f1 f2 f2 c==> c/\ clinear f1 c/\ ! c= * f1 * f0 b0 b0 ! c= * f0 * f1 b0 b0 c/\ c~ c= cI f0 cI f1 f2 f2 c= cI f0 cI f1 f2 f2
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (!x. (((\x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) x) ==> F))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 ! c==> * / c? / c\/ c~ clinear f1 c/\ c= * f1 b1 * f1 b1 c~ c= b1 b1 b0 cF
+- |- (T = (((~ (x = y)) \/ ((~ (x = z)) \/ (y = z))) = ((y = z) \/ ((~ (x = y)) \/ (~ (x = z))))))
+T c= cT c= c\/ c~ c= f0 f1 c\/ c~ c= f0 f2 c= f1 f2 c\/ c= f1 f2 c\/ c~ c= f0 f1 c~ c= f0 f2
+- (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) |- ((((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x)))))) = T)
+T c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 c= c==> c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 c? / c/\ clinear b0 c/\ ! c= * b0 * f0 b1 b1 ! c= * f0 * b0 b1 b1 cT
+- |- ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))
+T c= c\/ f0 c\/ f1 f2 c\/ c\/ f0 f1 f2
++ (~ (linear f)), (linear f) |- ((~ (linear f)) /\ F)
+T c==> c~ clinear f0 c==> clinear f0 c/\ c~ clinear f0 cF
+- (!x. ((g (f x)) = x)), (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))), (linear f) |- ((?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c? / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 c==> clinear f1 c/\ c? / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 cF
++ |- ((\x. ((I x) = x)) x)
+T * / c= cI b0 b0 f0
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((g x) = ((I h) x))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c= * f0 f3 cI f2 f3
+- |- ((!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) ==> (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))))
+T c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((!x. (((I h) ((I f) x)) = x)) /\ (!x. (((I f) ((I h) x)) = x)))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c/\ ! c= cI f0 cI f1 b0 b0 ! c= cI f1 cI f0 b0 b0
+- |- (((!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) ==> (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x)))))))) = (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))))
+T c= c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2
++ ((\y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) y) |- ((((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))) ==> F) = F)
+T c==> * / c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 b0 c~ c= f1 b0 f2 c= c==> c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 f2 c~ c= f1 f2 cF cF
+- |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) = ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))
+T c= c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (((!x. (((\h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))) x) ==> (linear g))) ==> ((?h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))) ==> (linear g))) = ((?h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))) ==> (linear g)))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c= c==> ! c==> * / c/\ clinear b1 c/\ ! c= * b1 * f1 b2 b2 ! c= * f1 * b1 b2 b2 b0 clinear f0 c==> c? / c/\ clinear b0 c/\ ! c= * b0 * f1 b1 b1 ! c= * f1 * b0 b1 b1 clinear f0 c==> c? / c/\ clinear b0 c/\ ! c= * b0 * f1 b1 b1 ! c= * f1 * b0 b1 b1 clinear f0
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ (((I f) ((I h) x)) = x)) ==> (((I f) ((I h) x)) = x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c==> c~ c= cI f1 cI f0 f2 f2 c= cI f1 cI f0 f2 f2
++ |- (((!g. ((f = g) = (!x. ((f x) = (g x))))) ==> ((\g. ((f = g) = (!x. ((f x) = (g x))))) g)) = ((\g. ((f = g) = (!x. ((f x) = (g x))))) g))
+T c= c==> ! c= c= f0 b0 ! c= * f0 b1 * b0 b1 * / c= c= f0 b0 ! c= * f0 b1 * b0 b1 f1 * / c= c= f0 b0 ! c= * f0 b1 * b0 b1 f1
+- (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ F) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c==> c~ cF cF
++ (linear f), (((((I f) x) = ((I f) y)) /\ (~ (x = y))) ==> F), ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))) |- F
+T c==> clinear f0 c==> c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 cF c==> c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 f2 c~ c= f1 f2 cF
+- |- ((\t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) t2)
+T * / ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 f1
+- |- ((\f. (!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))) f)
+T * / ! c==> clinear b0 c==> ! c= * b1 * b0 b2 b2 c==> c~ c/\ clinear b0 ! ! c==> c= * b0 b2 * b0 b3 c= b2 b3 cF f0
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((((I f) x) = ((I f) y)) /\ (~ (x = y))) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c/\ c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 cF
+- (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))), ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) |- ((!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) /\ (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))
+T c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 c/\ ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 c? / c/\ clinear b0 c/\ ! c= * b0 * f0 b1 b1 ! c= * f0 * b0 b1 b1
++ (!x. ((g (f x)) = x)) |- (((((I f) x) = ((I f) y)) /\ (~ (x = y))) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (!h. (((\h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))) h) ==> (linear g)))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 ! c==> * / c/\ clinear b1 c/\ ! c= * b1 * f1 b1 b1 ! c= * f1 * b1 b1 b1 b0 clinear f0
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((linear h) = T)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= clinear f0 cT
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((\x. (((I h) ((I f) x)) = x)) _186770)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 * / c= cI f0 cI f1 b0 b0 f2
++ |- (((linear f) /\ (!x. ((g (f x)) = x))) ==> (linear g))
+T c==> c/\ clinear f0 ! c= * f1 * f0 b0 b0 clinear f1
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((!x. ((f (h x)) = x)) ==> ((\x. ((f (h x)) = x)) x)) = ((\x. ((f (h x)) = x)) x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= c==> ! c= * f1 * f0 b0 b0 * / c= * f1 * f0 b0 b0 f2 * / c= * f1 * f0 b0 b0 f2
++ (!x. ((g (f x)) = x)), (linear f) |- ((?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c? / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 cF
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((g x) = (h x)) = T)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c= c= * f0 f3 * f2 f3 cT
++ (!x. ((g (f x)) = x)), (linear f) |- (((\x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) x) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> * / c? / c\/ c~ clinear f1 c/\ c= * f1 b0 * f1 b1 c~ c= b0 b1 f2 cF
++ |- ((!h. (!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (!x. ((g x) = (h x))))))))) = (!h. (!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))))
+T c= ! ! ! c==> clinear b2 c==> ! c= * b1 * b2 b3 b3 c==> c/\ clinear b0 c/\ ! c= * b0 * b2 b3 b3 ! c= * b2 * b0 b3 b3 ! c= * b1 b3 * b0 b3 ! ! ! c==> clinear b2 c==> ! c= * b1 * b2 b3 b3 c==> c/\ clinear b0 c/\ ! c= * b0 * b2 b3 b3 ! c= * b2 * b0 b3 b3 c==> c~ ! c= * b1 b3 * b0 b3 cF
++ (!x. ((g (f x)) = x)), (linear f) |- ((((\h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))) h) ==> (linear g)) = T)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c= c==> * / c/\ clinear b0 c/\ ! c= * b0 * f1 b1 b1 ! c= * f1 * b0 b1 b1 f2 clinear f0 cT
+- (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) |- ((!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) /\ (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))))
+T c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 c/\ ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2
++ (!x. ((g (f x)) = x)), (linear f) |- ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c~ c/\ clinear f1 ! ! c==> c= * f1 b0 * f1 b1 c= b0 b1 cF
+- (!x. ((g (f x)) = x)), (~ ((g ((I f) ((I h) x))) = ((I h) x))) |- ((~ ((g ((I f) ((I h) x))) = ((I h) x))) /\ ((g ((I f) ((I h) x))) = ((I h) x)))
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 cI f1 cI f2 f3 cI f2 f3 c/\ c~ c= * f0 cI f1 cI f2 f3 cI f2 f3 c= * f0 cI f1 cI f2 f3 cI f2 f3
++ |- ((!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (!x. ((g x) = (h x))))))) = T)
+T c= ! c==> clinear b0 c==> ! c= * f0 * b0 b1 b1 c==> c/\ clinear f1 c/\ ! c= * f1 * b0 b1 b1 ! c= * b0 * f1 b1 b1 ! c= * f0 b1 * f1 b1 cT
+- |- (((!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) ==> ((\t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) t2)) = ((\t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) t2))
+T c= c==> ! ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 * / ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 f1 * / ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 f1
+- (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))), ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) |- (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x)))))
+T c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 c? / c/\ clinear b0 c/\ ! c= * b0 * f0 b1 b1 ! c= * f0 * b0 b1 b1
+- (!x. ((g (f x)) = x)), (~ (x = y)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ (x = y)) /\ (x = y))
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= f2 f3 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c/\ c~ c= f2 f3 c= f2 f3
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))), (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) /\ ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c/\ c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ ((\x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) x) |- (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))
+T c==> * / c? / c\/ c~ clinear f0 c/\ c= * f0 b0 * f0 b1 c~ c= b0 b1 f1 c? / c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 b0 c~ c= f1 b0
+- |- ((~ (_186772 = _186773)) \/ ((linear _186773) \/ (~ (linear _186772))))
+T c\/ c~ c= f0 f1 c\/ clinear f1 c~ clinear f0
++ (g = h), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (linear g)
+T c==> c= f0 f1 c==> c/\ clinear f1 c/\ ! c= * f1 * f2 b0 b0 ! c= * f2 * f1 b0 b0 clinear f0
++ (!x. ((g (f x)) = x)), (linear f), ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))) |- (((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 f3 c~ c= f2 f3 c/\ c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 f3 c~ c= f2 f3 cF
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((I h) ((I f) _186770)) = _186770)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= cI f0 cI f1 f2 f2
+- |- ((x = x) = T)
+T c= c= f0 f0 cT
+- (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ (x = y)) ==> (x = y))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c==> c~ c= f2 f3 c= f2 f3
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (!x. ((f (h x)) = x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 ! c= * f1 * f0 b0 b0
++ |- (((!f. (!g. ((f = g) = (!x. ((f x) = (g x)))))) ==> ((\f. (!g. ((f = g) = (!x. ((f x) = (g x)))))) f)) = ((\f. (!g. ((f = g) = (!x. ((f x) = (g x)))))) f))
+T c= c==> ! ! c= c= b0 b1 ! c= * b0 b2 * b1 b2 * / ! c= c= b0 b1 ! c= * b0 b2 * b1 b2 f0 * / ! c= c= b0 b1 ! c= * b0 b2 * b1 b2 f0
+- |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))))) = T)
+T c= c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cT
+- |- (((!f. (!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))) ==> ((\f. (!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))) f)) = ((\f. (!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))) f))
+T c= c==> ! ! c==> clinear b0 c==> ! c= * b1 * b0 b2 b2 c==> c~ c/\ clinear b0 ! ! c==> c= * b0 b2 * b0 b3 c= b2 b3 cF * / ! c==> clinear b0 c==> ! c= * b1 * b0 b2 b2 c==> c~ c/\ clinear b0 ! ! c==> c= * b0 b2 * b0 b3 c= b2 b3 cF f0 * / ! c==> clinear b0 c==> ! c= * b1 * b0 b2 b2 c==> c~ c/\ clinear b0 ! ! c==> c= * b0 b2 * b0 b3 c= b2 b3 cF f0
++ |- ((p \/ (q \/ r)) = (q \/ (p \/ r)))
+T c= c\/ f0 c\/ f1 f2 c\/ f1 c\/ f0 f2
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((f (h x)) = x)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= * f1 * f0 f2 f2
++ |- ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (!x. ((g x) = (h x)))))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 ! c= * f0 b0 * f2 b0
+- |- ((a ==> b) = ((~ a) \/ b))
+T c= c==> f0 f1 c\/ c~ f0 f1
+- (_186774 = _186776), (_186775 = _186777) |- ((_186774 = _186776) /\ (((I _186774) _186775) = ((I _186776) _186777)))
+T c==> c= f0 f1 c==> c= f2 f3 c/\ c= f0 f1 c= cI f0 f2 cI f1 f3
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (!x. ((h (f x)) = x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 ! c= * f0 * f1 b0 b0
++ (~ (linear f)), (linear f) |- F
+T c==> c~ clinear f0 c==> clinear f0 cF
++ |- ((\g. ((f = g) = (!x. ((f x) = (g x))))) g)
+T * / c= c= f0 b0 ! c= * f0 b1 * b0 b1 f1
+- |- (((((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) ==> (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))) = (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))
+T c= c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
++ ((~ (linear f)) ==> F), (((((I f) x) = ((I f) y)) /\ (~ (x = y))) ==> F), ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))) |- F
+T c==> c==> c~ clinear f0 cF c==> c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 cF c==> c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 f2 c~ c= f1 f2 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (?h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c? / c/\ clinear b0 c/\ ! c= * b0 * f1 b1 b1 ! c= * f1 * b0 b1 b1
+- |- ((_186775 = _186777) ==> ((~ (_186774 = _186776)) \/ (((I _186774) _186775) = ((I _186776) _186777))))
+T c==> c= f0 f1 c\/ c~ c= f2 f3 c= cI f2 f0 cI f3 f1
+- (linear f) |- ((linear f) /\ ((!x. ((g (f x)) = x)) ==> ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))))
+T c==> clinear f0 c/\ clinear f0 c==> ! c= * f1 * f0 b0 b0 c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1
++ |- ((p \/ q) = (q \/ p))
+T c= c\/ f0 f1 c\/ f1 f0
++ ((linear f) /\ (!x. ((g (f x)) = x))) |- (((linear f) /\ (!x. ((g (f x)) = x))) /\ (linear g))
+T c==> c/\ clinear f0 ! c= * f1 * f0 b0 b0 c/\ c/\ clinear f0 ! c= * f1 * f0 b0 b0 clinear f1
+- (~ ((g ((I f) ((I h) x))) = (g x))), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ ((g ((I f) ((I h) x))) = (g x))) /\ ((g ((I f) ((I h) x))) = (g x)))
+T c==> c~ c= * f0 cI f1 cI f2 f3 * f0 f3 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c/\ c~ c= * f0 cI f1 cI f2 f3 * f0 f3 c= * f0 cI f1 cI f2 f3 * f0 f3
++ |- (((!x. (((f o g) x) = (f (g x)))) ==> ((\x. (((f o g) x) = (f (g x)))) x)) = ((\x. (((f o g) x) = (f (g x)))) x))
+T c= c==> ! c= co f0 f1 b0 * f0 * f1 b0 * / c= co f0 f1 b0 * f0 * f1 b0 f2 * / c= co f0 f1 b0 * f0 * f1 b0 f2
+- (!x. ((g (f x)) = x)) |- ((~ ((g ((I f) y)) = y)) ==> ((g ((I f) y)) = y))
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 cI f1 f2 f2 c= * f0 cI f1 f2 f2
+- |- ((p \/ (p \/ q)) = (p \/ q))
+T c= c\/ f0 c\/ f0 f1 c\/ f0 f1
++ (!x. ((g (f x)) = x)), (~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))), (linear f) |- F
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c/\ clinear f1 ! ! c==> c= * f1 b0 * f1 b1 c= b0 b1 c==> clinear f1 cF
+- (!x. ((g (f x)) = x)), (~ ((g ((I f) y)) = y)) |- ((~ ((g ((I f) y)) = y)) /\ ((g ((I f) y)) = y))
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 cI f1 f2 f2 c/\ c~ c= * f0 cI f1 f2 f2 c= * f0 cI f1 f2 f2
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((!x. ((h (f x)) = x)) ==> ((\x. ((h (f x)) = x)) x)) = ((\x. ((h (f x)) = x)) x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= c==> ! c= * f0 * f1 b0 b0 * / c= * f0 * f1 b0 b0 f2 * / c= * f0 * f1 b0 b0 f2
++ (!x. ((g (f x)) = x)), (linear f), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ (!x. ((g x) = (h x)))) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c==> c~ ! c= * f0 b0 * f2 b0 cF
+- |- ((?y'. (((f x) = (f y')) /\ (~ (x = y)))) = ((?y. ((f x) = (f y))) /\ (~ (x = y))))
+T c= c? / c/\ c= * f0 f1 * f0 b0 c~ c= f1 f2 c/\ c? / c= * f0 f1 * f0 b0 c~ c= f1 f2
+- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) /\ (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))))
+T c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c/\ c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ (!x. ((g (f x)) = x)) |- ((!x. ((g (f x)) = x)) /\ (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (!x. ((g x) = (h x)))))
+T c==> ! c= * f0 * f1 b0 b0 c/\ ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 ! c= * f0 b0 * f2 b0
+- |- ((?y'. (((f x) = (f y)) /\ (~ (x = y')))) = (((f x) = (f y)) /\ (?y. (~ (x = y)))))
+T c= c? / c/\ c= * f0 f1 * f0 f2 c~ c= f1 b0 c/\ c= * f0 f1 * f0 f2 c? / c~ c= f1 b0
++ |- (((~ (!x. ((g x) = (h x)))) ==> F) = (!x. ((g x) = (h x))))
+T c= c==> c~ ! c= * f0 b0 * f1 b0 cF ! c= * f0 b0 * f1 b0
++ (!x. ((g (f x)) = x)), (~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))), (linear f) |- ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c/\ clinear f1 ! ! c==> c= * f1 b0 * f1 b1 c= b0 b1 c==> clinear f1 c/\ c~ c/\ clinear f1 ! ! c==> c= * f1 b0 * f1 b1 c= b0 b1 cF
+- (~ (linear f)), (linear f) |- ((~ F) ==> F)
+T c==> c~ clinear f0 c==> clinear f0 c==> c~ cF cF
+- |- (!f. (!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))))))
+T c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1
++ (linear f) |- ((~ (linear f)) ==> F)
+T c==> clinear f0 c==> c~ clinear f0 cF
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((!x. (((I f) ((I h) x)) = x)) ==> ((\x. (((I f) ((I h) x)) = x)) _186771)) = ((\x. (((I f) ((I h) x)) = x)) _186771))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= c==> ! c= cI f1 cI f0 b0 b0 * / c= cI f1 cI f0 b0 b0 f2 * / c= cI f1 cI f0 b0 b0 f2
++ |- ((\f. (!g. ((f = g) = (!x. ((f x) = (g x)))))) f)
+T * / ! c= c= b0 b1 ! c= * b0 b2 * b1 b2 f0
+- |- (((t1 \/ t2) \/ t3) = (t1 \/ (t2 \/ t3)))
+T c= c\/ c\/ f0 f1 f2 c\/ f0 c\/ f1 f2
++ |- ((~ (a \/ b)) = ((~ a) /\ (~ b)))
+T c= c~ c\/ f0 f1 c/\ c~ f0 c~ f1
+- (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ ((g x) = ((I h) x))) ==> ((g x) = ((I h) x)))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c==> c~ c= * f0 f3 cI f2 f3 c= * f0 f3 cI f2 f3
+- (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) |- ((\f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) f)
+T c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 * / c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 f0
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (!x. (((I h) ((I f) x)) = x))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 ! c= cI f0 cI f1 b0 b0
++ ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((g ((I f) x)) = x) = (((g ((I f) x)) = (g ((I f) y))) /\ ((g ((I f) x)) = x)))
+T c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 c= c= * f3 cI f0 f1 f1 c/\ c= * f3 cI f0 f1 * f3 cI f0 f2 c= * f3 cI f0 f1 f1
++ (!x. ((g (f x)) = x)), (linear f), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (g = h)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c= f0 f2
++ |- (((~ (linear f)) \/ (?x. (?y. (((f x) = (f y)) /\ (~ (x = y)))))) = (?x. ((~ (linear f)) \/ (?y. (((f x) = (f y)) /\ (~ (x = y)))))))
+T c= c\/ c~ clinear f0 c? / c? / c/\ c= * f0 b0 * f0 b1 c~ c= b0 b1 c? / c\/ c~ clinear f0 c? / c/\ c= * f0 b0 * f0 b1 c~ c= b0 b1
+- |- ((~ (_186775 = _186777)) \/ ((~ (_186774 = _186776)) \/ (((I _186774) _186775) = ((I _186776) _186777))))
+T c\/ c~ c= f0 f1 c\/ c~ c= f2 f3 c= cI f2 f0 cI f3 f1
++ (!x. ((g (f x)) = x)), (?h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))), (linear f) |- (linear g)
+T c==> ! c= * f0 * f1 b0 b0 c==> c? / c/\ clinear b0 c/\ ! c= * b0 * f1 b1 b1 ! c= * f1 * b0 b1 b1 c==> clinear f1 clinear f0
++ |- ((\g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))) g)
+T * / ! c==> clinear b1 c==> ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 c/\ ! c= * f0 * b1 b2 b2 ! c= * b1 * f0 b2 b2 c==> c~ ! c= * b0 b2 * f0 b2 cF f1
++ ((\y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) y) |- ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))
+T c==> * / c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 b0 c~ c= f1 b0 f2 c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 f2 c~ c= f1 f2
+- (!x. ((g (f x)) = x)) |- ((~ ((g ((I f) ((I h) x))) = ((I h) x))) ==> ((g ((I f) ((I h) x))) = ((I h) x)))
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 cI f1 cI f2 f3 cI f2 f3 c= * f0 cI f1 cI f2 f3 cI f2 f3
++ (!x. ((g (f x)) = x)), (linear f) |- (((\y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) y) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> * / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 f3 cF
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((linear h) /\ ((!x. (((I h) ((I f) x)) = x)) /\ (!x. (((I f) ((I h) x)) = x))))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c/\ clinear f0 c/\ ! c= cI f0 cI f1 b0 b0 ! c= cI f1 cI f0 b0 b0
+- (!x. ((g (f x)) = x)), (~ ((g ((I f) y)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ ((g ((I f) y)) = x)) /\ ((g ((I f) y)) = x))
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 cI f1 f2 f3 c==> c/\ c= cI f1 f3 cI f1 f2 c~ c= f3 f2 c/\ c~ c= * f0 cI f1 f2 f3 c= * f0 cI f1 f2 f3
+- (!x. ((g (f x)) = x)) |- ((\x. ((g (f x)) = x)) x)
+T c==> ! c= * f0 * f1 b0 b0 * / c= * f0 * f1 b0 b0 f2
++ |- ((\f. (!g. (!x. (((f o g) x) = (f (g x)))))) f)
+T * / ! ! c= co b0 b1 b2 * b0 * b1 b2 f0
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((g ((I f) ((I h) x))) = (g x)) /\ ((g ((I f) ((I h) x))) = ((I h) x)))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c/\ c= * f0 cI f1 cI f2 f3 * f0 f3 c= * f0 cI f1 cI f2 f3 cI f2 f3
++ |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (!x. ((g x) = (h x)))))) = T)
+T c= c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 ! c= * f1 b0 * f2 b0 cT
+- |- ((!f. (!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))))))) = (!f. (!g. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))))
+T c= ! ! c==> clinear b0 c==> ! c= * b1 * b0 b2 b2 c/\ clinear b0 ! ! c==> c= * b0 b2 * b0 b3 c= b2 b3 ! ! c==> clinear b0 c==> ! c= * b1 * b0 b2 b2 c==> c~ c/\ clinear b0 ! ! c==> c= * b0 b2 * b0 b3 c= b2 b3 cF
++ ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((x = y) ==> F)
+T c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 c==> c= f1 f2 cF
++ (!x. ((g (f x)) = x)), (linear f) |- ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c/\ clinear f1 ! ! c==> c= * f1 b0 * f1 b1 c= b0 b1
++ (!x. ((g (f x)) = x)), (linear f), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (!x. ((g x) = (h x)))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 ! c= * f0 b0 * f2 b0
+- |- (((!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) ==> ((\t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) t3)) = ((\t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) t3))
+T c= c==> ! c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 * / c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 f2 * / c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 f2
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) /\ (!x. ((g x) = (h x))))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c/\ c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 ! c= * f0 b0 * f2 b0
++ |- (((~ (linear f)) \/ (?y. (((f x) = (f y)) /\ (~ (x = y))))) = (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))))
+T c= c\/ c~ clinear f0 c? / c/\ c= * f0 f1 * f0 b0 c~ c= f1 b0 c? / c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 b0 c~ c= f1 b0
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((g ((I f) y)) = x)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c= * f0 cI f1 f3 f2
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((g ((I f) y)) = x) /\ ((g ((I f) y)) = y))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c/\ c= * f0 cI f1 f3 f2 c= * f0 cI f1 f3 f3
++ (!x. ((g (f x)) = x)), (linear f), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) /\ (linear g))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c/\ c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 clinear f0
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- (((((g ((I f) ((I h) x))) = (g x)) /\ ((g ((I f) ((I h) x))) = ((I h) x))) ==> ((g x) = ((I h) x))) = ((g x) = ((I h) x)))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c= c==> c/\ c= * f0 cI f1 cI f2 f3 * f0 f3 c= * f0 cI f1 cI f2 f3 cI f2 f3 c= * f0 f3 cI f2 f3 c= * f0 f3 cI f2 f3
+- |- ((t /\ t) = t)
+T c= c/\ f0 f0 f0
+- |- ((a = b) ==> (b \/ (~ a)))
+T c==> c= f0 f1 c\/ f1 c~ f0
+- ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) |- ((!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))
+T c==> c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 c? / c/\ clinear b0 c/\ ! c= * b0 * f0 b1 b1 ! c= * f0 * b0 b1 b1
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((h (f x)) = x)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c= * f0 * f1 f2 f2
+- |- ((~ (_186778 = _186779)) \/ ((g _186778) = (g _186779)))
+T c\/ c~ c= f0 f1 c= * f2 f0 * f2 f1
+- (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ ((g ((I f) y)) = x)) ==> ((g ((I f) y)) = x))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c==> c~ c= * f0 cI f1 f3 f2 c= * f0 cI f1 f3 f2
+- (linear f) |- ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))
+T c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))) |- ((~ (linear f)) \/ ((((I f) x) = ((I f) y)) /\ (~ (x = y))))
+T c==> c\/ c~ clinear f0 c/\ c= * f0 f1 * f0 f2 c~ c= f1 f2 c\/ c~ clinear f0 c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((g x) = (h x))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c= * f0 f3 * f2 f3
+- (!x. ((g (f x)) = x)), (~ F), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ F) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ cF c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c/\ c~ cF cF
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((((g ((I f) x)) = (g ((I f) y))) /\ ((g ((I f) x)) = x)) ==> ((g ((I f) y)) = x)) = ((g ((I f) y)) = x))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c= c==> c/\ c= * f0 cI f1 f2 * f0 cI f1 f3 c= * f0 cI f1 f2 f2 c= * f0 cI f1 f3 f2 c= * f0 cI f1 f3 f2
+- |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ |- ((((linear f) /\ (!x. ((g (f x)) = x))) ==> (linear g)) = (((linear f) /\ ((g o f) = I)) ==> (linear g)))
+T c= c==> c/\ clinear f0 ! c= * f1 * f0 b0 b0 clinear f1 c==> c/\ clinear f0 c= * * part co f1 f0 part cI clinear f1
+- |- (T = (((~ (_186778 = _186779)) \/ ((g _186778) = (g _186779))) = (((g _186778) = (g _186779)) \/ (~ (_186778 = _186779)))))
+T c= cT c= c\/ c~ c= f0 f1 c= * f2 f0 * f2 f1 c\/ c= * f2 f0 * f2 f1 c~ c= f0 f1
+- ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ (((I f) x) = ((I f) y))) ==> (((I f) x) = ((I f) y)))
+T c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 c==> c~ c= cI f0 f1 cI f0 f2 c= cI f0 f1 cI f0 f2
++ (!x. ((g (f x)) = x)), (linear f) |- (!y. (((\y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))) y) ==> F))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 ! c==> * / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b1 c~ c= f2 b1 b0 cF
++ (!x. ((g (f x)) = x)), (linear f) |- ((((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))))) = (?h. ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x))))))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c= c==> c/\ clinear f1 ! ! c==> c= * f1 b0 * f1 b1 c= b0 b1 c? / c/\ clinear b0 c/\ ! c= * b0 * f1 b1 b1 ! c= * f1 * b0 b1 b1 c? / c/\ clinear b0 c/\ ! c= * b0 * f1 b1 b1 ! c= * f1 * b0 b1 b1
++ |- ((\f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) f)
+T * / c==> clinear b0 c==> ! c= * f0 * b0 b1 b1 c==> c/\ clinear f1 c/\ ! c= * f1 * b0 b1 b1 ! c= * b0 * f1 b1 b1 c==> c~ ! c= * f0 b1 * f1 b1 cF f2
+- (!x. ((g (f x)) = x)), (~ ((g x) = (h x))), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ F) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 f2 * f3 f2 c==> c/\ clinear f3 c/\ ! c= * f3 * f1 b0 b0 ! c= * f1 * f3 b0 b0 c==> c~ cF cF
+- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) /\ (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))))
+T c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c/\ c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
++ |- (((!g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))) ==> ((\g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))) g)) = ((\g. (!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))) g))
+T c= c==> ! ! c==> clinear b1 c==> ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 c/\ ! c= * f0 * b1 b2 b2 ! c= * b1 * f0 b2 b2 c==> c~ ! c= * b0 b2 * f0 b2 cF * / ! c==> clinear b1 c==> ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 c/\ ! c= * f0 * b1 b2 b2 ! c= * b1 * f0 b2 b2 c==> c~ ! c= * b0 b2 * f0 b2 cF f1 * / ! c==> clinear b1 c==> ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 c/\ ! c= * f0 * b1 b2 b2 ! c= * b1 * f0 b2 b2 c==> c~ ! c= * b0 b2 * f0 b2 cF f1
+- |- ((!h. (P h)) = ((P T) /\ (P F)))
+T c= ! * f0 b0 c/\ * f0 cT * f0 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (((!x. (((\x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) x) ==> F)) ==> ((?x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) ==> F)) = ((?x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) ==> F))
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c= c==> ! c==> * / c? / c\/ c~ clinear f1 c/\ c= * f1 b1 * f1 b1 c~ c= b1 b1 b0 cF c==> c? / c? / c\/ c~ clinear f1 c/\ c= * f1 b0 * f1 b1 c~ c= b0 b1 cF c==> c? / c? / c\/ c~ clinear f1 c/\ c= * f1 b0 * f1 b1 c~ c= b0 b1 cF
++ (~ ((g x) = (h x))) |- (((g x) = ((I h) x)) ==> F)
+T c==> c~ c= * f0 f1 * f2 f1 c==> c= * f0 f1 cI f2 f1 cF
+- |- (((!t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) ==> ((\t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) t1)) = ((\t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) t1))
+T c= c==> ! ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 * / ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 f0 * / ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 f0
+- (_186775 = _186777) |- ((_186774 = _186776) ==> (((I _186774) _186775) = ((I _186776) _186777)))
+T c==> c= f0 f1 c==> c= f2 f3 c= cI f2 f0 cI f3 f1
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))), (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) /\ ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c/\ c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
++ (linear f), ((linear f) /\ (!x. ((g (f x)) = x))) |- (linear g)
+T c==> clinear f0 c==> c/\ clinear f0 ! c= * f1 * f0 b0 b0 clinear f1
+- (linear f) |- ((~ (linear f)) ==> (linear f))
+T c==> clinear f0 c==> c~ clinear f0 clinear f0
+- (!f. (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) ==> (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))), ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) |- (((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y))))) /\ (?f'. ((linear f') /\ ((!x. ((f' (f x)) = x)) /\ (!x. ((f (f' x)) = x))))))
+T c==> ! c==> c/\ clinear b0 ! ! c==> c= * b0 b1 * b0 b2 c= b1 b2 c? / c/\ clinear b1 c/\ ! c= * b1 * b0 b2 b2 ! c= * b0 * b1 b2 b2 c==> c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 c/\ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 c? / c/\ clinear b0 c/\ ! c= * b0 * f0 b1 b1 ! c= * f0 * b0 b1 b1
++ (linear f) |- ((linear f) /\ ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> (!x. ((g x) = (h x))))))
+T c==> clinear f0 c/\ clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 ! c= * f1 b0 * f2 b0
+- |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) ==> (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))))
+T c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
+- |- ((((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) = ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))
+T c= c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
+- |- ((?y. (P /\ (Q y))) = (P /\ (?y. (Q y))))
+T c= c? / c/\ f0 * f1 b0 c/\ f0 c? / * f1 b0
+- (_186772 = _186773) |- ((((linear _186772) = (linear _186773)) ==> ((linear _186773) \/ (~ (linear _186772)))) = ((linear _186773) \/ (~ (linear _186772))))
+T c==> c= f0 f1 c= c==> c= clinear f0 clinear f1 c\/ clinear f1 c~ clinear f0 c\/ clinear f1 c~ clinear f0
++ |- ((\x. (((f o g) x) = (f (g x)))) x)
+T * / c= co f0 f1 b0 * f0 * f1 b0 f2
++ ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((\x. (((I f) ((I h) x)) = x)) _186771)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 * / c= cI f1 cI f0 b0 b0 f2
+- (_186772 = _186773) |- ((_186772 = _186773) /\ ((linear _186773) \/ (~ (linear _186772))))
+T c==> c= f0 f1 c/\ c= f0 f1 c\/ clinear f1 c~ clinear f0
+- |- (((((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))) ==> (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))) = (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) ==> ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F)))))
+T c= c==> c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ (linear f) |- ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))
+T c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
+- (~ ((g ((I f) x)) = (g ((I f) y)))), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ ((g ((I f) x)) = (g ((I f) y)))) /\ ((g ((I f) x)) = (g ((I f) y))))
+T c==> c~ c= * f0 cI f1 f2 * f0 cI f1 f3 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c/\ c~ c= * f0 cI f1 f2 * f0 cI f1 f3 c= * f0 cI f1 f2 * f0 cI f1 f3
+- ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- ((~ ((g ((I f) x)) = (g ((I f) y)))) ==> ((g ((I f) x)) = (g ((I f) y))))
+T c==> c/\ c= cI f0 f1 cI f0 f2 c~ c= f1 f2 c==> c~ c= * f3 cI f0 f1 * f3 cI f0 f2 c= * f3 cI f0 f1 * f3 cI f0 f2
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((((g ((I f) y)) = x) /\ ((g ((I f) y)) = y)) ==> (x = y)) = (x = y))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c= c==> c/\ c= * f0 cI f1 f3 f2 c= * f0 cI f1 f3 f3 c= f2 f3 c= f2 f3
++ (!x. ((g (f x)) = x)), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ ((g x) = (h x))) ==> F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f1 b0 b0 ! c= * f1 * f2 b0 b0 c==> c~ c= * f0 f3 * f2 f3 cF
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((\x. ((f (h x)) = x)) x)
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 * / c= * f1 * f0 b0 b0 f2
++ |- ((!x. ((g x) = (h x))) = (g = h))
+T c= ! c= * f0 b0 * f1 b0 c= f0 f1
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))) /\ ((linear f) ==> ((!x. ((g (f x)) = x)) ==> ((~ ((linear f) /\ (!x. (!y. (((f x) = (f y)) ==> (x = y)))))) ==> F))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c/\ c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c~ c/\ clinear f0 ! ! c==> c= * f0 b0 * f0 b1 c= b0 b1 cF
++ (!x. ((g (f x)) = x)), (linear f) |- (linear g)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 clinear f0
++ |- ((~ p) = (p ==> F))
+T c= c~ f0 c==> f0 cF
+- (~ (linear f)), (linear f) |- ((~ (linear f)) /\ (linear f))
+T c==> c~ clinear f0 c==> clinear f0 c/\ c~ clinear f0 clinear f0
++ |- (((!f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) ==> ((\f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) f)) = ((\f. ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F))))) f))
+T c= c==> ! c==> clinear b0 c==> ! c= * f0 * b0 b1 b1 c==> c/\ clinear f1 c/\ ! c= * f1 * b0 b1 b1 ! c= * b0 * f1 b1 b1 c==> c~ ! c= * f0 b1 * f1 b1 cF * / c==> clinear b0 c==> ! c= * f0 * b0 b1 b1 c==> c/\ clinear f1 c/\ ! c= * f1 * b0 b1 b1 ! c= * b0 * f1 b1 b1 c==> c~ ! c= * f0 b1 * f1 b1 cF f2 * / c==> clinear b0 c==> ! c= * f0 * b0 b1 b1 c==> c/\ clinear f1 c/\ ! c= * f1 * b0 b1 b1 ! c= * b0 * f1 b1 b1 c==> c~ ! c= * f0 b1 * f1 b1 cF f2
++ (!x. ((g (f x)) = x)), (linear f), ((\x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) x) |- (((\x. (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y)))))) x) /\ F)
+T c==> ! c= * f0 * f1 b0 b0 c==> clinear f1 c==> * / c? / c\/ c~ clinear f1 c/\ c= * f1 b0 * f1 b1 c~ c= b0 b1 f2 c/\ * / c? / c\/ c~ clinear f1 c/\ c= * f1 b0 * f1 b1 c~ c= b0 b1 f2 cF
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((g ((I f) x)) = (g ((I f) y))) /\ ((g ((I f) x)) = x))
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c/\ c= * f0 cI f1 f2 * f0 cI f1 f3 c= * f0 cI f1 f2 f2
++ (!x. ((g (f x)) = x)), ((((I f) x) = ((I f) y)) /\ (~ (x = y))) |- (((x = y) ==> F) = F)
+T c==> ! c= * f0 * f1 b0 b0 c==> c/\ c= cI f1 f2 cI f1 f3 c~ c= f2 f3 c= c==> c= f2 f3 cF cF
+- ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) |- (((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))) /\ ((linear f) ==> ((!x. ((g (f x)) = x)) ==> (((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) ==> ((~ (!x. ((g x) = (h x)))) ==> F)))))
+T c==> c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c/\ c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF c==> clinear f0 c==> ! c= * f1 * f0 b0 b0 c==> c/\ clinear f2 c/\ ! c= * f2 * f0 b0 b0 ! c= * f0 * f2 b0 b0 c==> c~ ! c= * f1 b0 * f2 b0 cF
+- ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ ((g ((I f) ((I h) x))) = (g x))) ==> ((g ((I f) ((I h) x))) = (g x)))
+T c==> c/\ clinear f0 c/\ ! c= * f0 * f1 b0 b0 ! c= * f1 * f0 b0 b0 c==> c~ c= * f2 cI f1 cI f0 f3 * f2 f3 c= * f2 cI f1 cI f0 f3 * f2 f3
+- (!x. ((g (f x)) = x)), (?y. ((~ (linear f)) \/ (((f x) = (f y)) /\ (~ (x = y))))), (linear f) |- F
+T c==> ! c= * f0 * f1 b0 b0 c==> c? / c\/ c~ clinear f1 c/\ c= * f1 f2 * f1 b0 c~ c= f2 b0 c==> clinear f1 cF
+- (~ F), (~ (linear f)), (linear f) |- ((~ F) /\ F)
+T c==> c~ cF c==> c~ clinear f0 c==> clinear f0 c/\ c~ cF cF
+- |- ((?y. ((P y) /\ Q)) = ((?y. (P y)) /\ Q))
+T c= c? / c/\ * f0 b0 f1 c/\ c? / * f0 b0 f1
+- (!x. ((g (f x)) = x)), (~ ((g x) = ((I h) x))), ((linear h) /\ ((!x. ((h (f x)) = x)) /\ (!x. ((f (h x)) = x)))) |- ((~ ((g x) = ((I h) x))) /\ ((g x) = ((I h) x)))
+T c==> ! c= * f0 * f1 b0 b0 c==> c~ c= * f0 f2 cI f3 f2 c==> c/\ clinear f3 c/\ ! c= * f3 * f1 b0 b0 ! c= * f1 * f3 b0 b0 c/\ c~ c= * f0 f2 cI f3 f2 c= * f0 f2 cI f3 f2
+- (!x. ((g (f x)) = x)) |- ((g (f x)) = x)
+T c==> ! c= * f0 * f1 b0 b0 c= * f0 * f1 f2 f2
+- (_186775 = _186777) |- ((_186775 = _186777) /\ ((~ (_186774 = _186776)) \/ (((I _186774) _186775) = ((I _186776) _186777))))
+T c==> c= f0 f1 c/\ c= f0 f1 c\/ c~ c= f2 f3 c= cI f2 f0 cI f3 f1

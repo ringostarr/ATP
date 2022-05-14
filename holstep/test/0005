@@ -1,0 +1,36 @@
+N LOCALLY_CONNECTED_PATH_IMAGE
+C |- (!p. ((path p) ==> ((locally connected) (path_image p))))
+T c==> cpath f0 clocally part cconnected * part cpath_image f0
+D TRUTH
+A |- T
+T cT
+D LOCALLY_PATH_CONNECTED_IMP_LOCALLY_CONNECTED
+A |- (!s. (((locally path_connected) s) ==> ((locally connected) s)))
+T c==> clocally part cpath_connected f0 clocally part cconnected f0
+D LOCALLY_PATH_CONNECTED_PATH_IMAGE
+A |- (!p. ((path p) ==> ((locally path_connected) (path_image p))))
+T c==> cpath f0 clocally part cpath_connected * part cpath_image f0
++ |- ((((path p) = (path p)) ==> (((path p) ==> (((locally connected) (path_image p)) = q')) ==> (((path p) ==> ((locally connected) (path_image p))) = ((path p) ==> q')))) = (((path p) ==> (((locally connected) (path_image p)) = q')) ==> (((path p) ==> ((locally connected) (path_image p))) = ((path p) ==> q'))))
+T c= c==> c= cpath f0 cpath f0 c==> c==> cpath f0 c= clocally part cconnected * part cpath_image f0 f1 c= c==> cpath f0 clocally part cconnected * part cpath_image f0 c==> cpath f0 f1 c==> c==> cpath f0 c= clocally part cconnected * part cpath_image f0 f1 c= c==> cpath f0 clocally part cconnected * part cpath_image f0 c==> cpath f0 f1
+- (path p) |- ((path p) = T)
+T c==> cpath f0 c= cpath f0 cT
++ ((locally path_connected) s) |- (((locally path_connected) s) /\ (((locally connected) s) = T))
+T c==> clocally part cpath_connected f0 c/\ clocally part cpath_connected f0 c= clocally part cconnected f0 cT
++ |- ((t ==> T) = T)
+T c= c==> f0 cT cT
+- |- ((t ==> t) = T)
+T c= c==> f0 f0 cT
++ |- ((\p'. (!q'. (((path p) = p') ==> ((p' ==> (((locally connected) (path_image p)) = q')) ==> (((path p) ==> ((locally connected) (path_image p))) = (p' ==> q')))))) p')
+T * / ! c==> c= cpath f0 b0 c==> c==> b0 c= clocally part cconnected * part cpath_image f0 b1 c= c==> cpath f0 clocally part cconnected * part cpath_image f0 c==> b0 b1 f1
++ |- (((locally path_connected) s) ==> (((locally connected) s) = T))
+T c==> clocally part cpath_connected f0 c= clocally part cconnected f0 cT
++ |- ((!p. t) = t)
+T c= ! f0 f0
+- |- ((path p) ==> (((locally path_connected) (path_image p)) = T))
+T c==> cpath f0 c= clocally part cpath_connected * part cpath_image f0 cT
+- (path p) |- (T = ((locally path_connected) (path_image p)))
+T c==> cpath f0 c= cT clocally part cpath_connected * part cpath_image f0
+- (path p) |- ((path p) /\ (((locally path_connected) (path_image p)) = T))
+T c==> cpath f0 c/\ cpath f0 c= clocally part cpath_connected * part cpath_image f0 cT
+- (path p) |- (T = (path p))
+T c==> cpath f0 c= cT cpath f0

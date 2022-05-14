@@ -1,0 +1,359 @@
+N HAS_REAL_INTEGRAL_NULL
+C |- (!f. (!a. (!b. (((real_le b) a) ==> (((has_real_integral f) (real_of_num (NUMERAL _0))) (closed_real_interval ((CONS (a , b)) NIL)))))))
+T c==> creal_le f0 f1 chas_real_integral f2 creal_of_num cNUMERAL c_0 * part cclosed_real_interval cCONS c, f1 f0 cNIL
+D TRUTH
+A |- T
+T cT
+D ETA_AX
+A |- (!t. ((\x. (t x)) = t))
+T c= / * f0 b0 f0
+D BOOL_CASES_AX
+A |- (!t. ((t = T) \/ (t = F)))
+T c\/ c= f0 cT c= f0 cF
+D NOT_CLAUSES
+A |- ((!t. ((~ (~ t)) = t)) /\ (((~ T) = F) /\ ((~ F) = T)))
+T c/\ ! c= c~ c~ b0 b0 c/\ c= c~ cT cF c= c~ cF cT
+D NOT_EXISTS_THM
+A |- (!P. ((~ (?x. (P x))) = (!x. (~ (P x)))))
+T c= c~ c? / * f0 b0 ! c~ * f0 b0
+D o_DEF
+A |- (!f. (!g. ((f o g) = (\x. (f (g x))))))
+T c= * * part co f0 f1 / * f0 * f1 b0
+D IN
+A |- (!P. (!x. ((x IN P) = (P x))))
+T c= cIN f0 f1 * f1 f0
+D EXTENSION
+A |- (!s. (!t. ((s = t) = (!x. ((x IN s) = (x IN t))))))
+T c= c= f0 f1 ! c= cIN b0 f0 cIN b0 f1
+D IN_IMAGE
+A |- (!y. (!s. (!f. ((y IN ((IMAGE f) s)) = (?x. ((y = (f x)) /\ (x IN s)))))))
+T c= cIN f0 * * part cIMAGE f1 f2 c? / c/\ c= f0 * f1 b0 cIN b0 f2
+D IMAGE_o
+A |- (!f. (!g. (!s. (((IMAGE (f o g)) s) = ((IMAGE f) ((IMAGE g) s))))))
+T c= * * part cIMAGE * * part co f0 f1 f2 * * part cIMAGE f0 * * part cIMAGE f1 f2
+D LIFT_DROP
+A |- ((!x. ((lift (drop x)) = x)) /\ (!x. ((drop (lift x)) = x)))
+T c/\ ! c= clift cdrop b0 b0 ! c= cdrop clift b0 b0
+D LIFT_NUM
+A |- (!n. ((lift (real_of_num n)) = (vec n)))
+T c= clift creal_of_num f0 cvec f0
+D CONTENT_EQ_0_1
+A |- (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a)))))
+T c= c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop f1 cdrop f0
+D HAS_INTEGRAL_NULL
+A |- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))))
+T c==> c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 chas_integral f2 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 f1 cNIL
+D REAL_INTERVAL_INTERVAL
+A |- (((closed_real_interval ((CONS (a , b)) NIL)) = ((IMAGE drop) (closed_interval ((CONS ((lift a) , (lift b))) NIL)))) /\ ((open_real_interval (a , b)) = ((IMAGE drop) (open_interval ((lift a) , (lift b))))))
+T c/\ c= * part cclosed_real_interval cCONS c, f0 f1 cNIL * * part cIMAGE part cdrop * part cclosed_interval cCONS c, clift f0 clift f1 cNIL c= * part copen_real_interval c, f0 f1 * * part cIMAGE part cdrop * part copen_interval c, clift f0 clift f1
+D has_real_integral
+A |- (!f. (!y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s))))))
+T c= chas_real_integral f0 f1 f2 chas_integral * * part co part clift * * part co f0 part cdrop clift f1 * * part cIMAGE part clift f2
+- ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F), (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) |- ((((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) /\ ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F))
+T c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c/\ c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
++ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- ((((x = x) /\ (s x)) ==> F) = F)
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c= c==> c/\ c= f0 f0 * f1 f0 cF cF
++ |- ((~ ((?x'. ((x = x') /\ (s x'))) = (s x))) ==> F)
+T c==> c~ c= c? / c/\ c= f0 b0 * f1 b0 * f1 f0 cF
+- (((x = x') /\ (s x')) /\ (~ (s x))) |- ((~ (s x')) ==> (s x'))
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c==> c~ * f2 f1 * f2 f1
++ |- (((!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) ==> ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) a)) = ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) a))
+T c= c==> ! ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL * / ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL f1 * / ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL f1
++ |- (((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) ==> F)
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 cF
++ ((real_le b) a) |- (((has_integral (\x. (lift (f (drop x))))) (vec (NUMERAL _0))) (closed_interval ((CONS ((lift a) , (lift b))) NIL)))
+T c==> creal_le f0 f1 chas_integral / clift * f2 cdrop b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, clift f1 clift f0 cNIL
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- ((\f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) f)
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL * / ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL f0
+- (((x = x') /\ (s x')) /\ (~ (s x))) |- ((s x') = (s x'))
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c= * f2 f1 * f2 f1
+- |- (((((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) ==> (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F))) = (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)))
+T c= c==> c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
+- |- ((\t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) t1)
+T * / ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 f0
+- |- ((open_real_interval (a , b)) = ((IMAGE drop) (open_interval ((lift a) , (lift b)))))
+T c= * part copen_real_interval c, f0 f1 * * part cIMAGE part cdrop * part copen_interval c, clift f0 clift f1
+- |- ((~ (x = x)) ==> (x = x))
+T c==> c~ c= f0 f0 c= f0 f0
++ |- (((!x. ((lift (drop x)) = x)) ==> ((\x. ((lift (drop x)) = x)) x)) = ((\x. ((lift (drop x)) = x)) x))
+T c= c==> ! c= clift cdrop b0 b0 * / c= clift cdrop b0 b0 f0 * / c= clift cdrop b0 b0 f0
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL ! ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL
++ |- (((!x. ((drop (lift x)) = x)) ==> ((\x. ((drop (lift x)) = x)) x)) = ((\x. ((drop (lift x)) = x)) x))
+T c= c==> ! c= cdrop clift b0 b0 * / c= cdrop clift b0 b0 f0 * / c= cdrop clift b0 b0 f0
++ ((real_le b) a) |- ((content (closed_interval ((CONS ((lift a) , (lift b))) NIL))) = (real_of_num (NUMERAL _0)))
+T c==> creal_le f0 f1 c= ccontent * part cclosed_interval cCONS c, clift f1 clift f0 cNIL creal_of_num cNUMERAL c_0
++ ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x))) |- (((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x))) /\ F)
+T c==> c\/ c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c/\ ! c\/ c~ c= f0 b0 c~ * f2 b0 * f2 f0 c/\ c\/ c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c/\ ! c\/ c~ c= f0 b0 c~ * f2 b0 * f2 f0 cF
++ |- (((?x'. (P x')) \/ Q) = (?x'. ((P x') \/ Q)))
+T c= c\/ c? / * f0 b0 f1 c? / c\/ * f0 b0 f1
++ ((real_le b) a) |- ((((content (closed_interval ((CONS ((lift a) , (lift b))) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral (\x. (lift (f (drop x))))) (vec (NUMERAL _0))) (closed_interval ((CONS ((lift a) , (lift b))) NIL)))) = (((has_integral (\x. (lift (f (drop x))))) (vec (NUMERAL _0))) (closed_interval ((CONS ((lift a) , (lift b))) NIL))))
+T c==> creal_le f0 f1 c= c==> c= ccontent * part cclosed_interval cCONS c, clift f1 clift f0 cNIL creal_of_num cNUMERAL c_0 chas_integral / clift * f2 cdrop b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, clift f1 clift f0 cNIL chas_integral / clift * f2 cdrop b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, clift f1 clift f0 cNIL
++ |- (((?x'. (((x = x') /\ (s x')) /\ (~ (s x)))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x))) = (?x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))))
+T c= c\/ c? / c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c? / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0
+- (~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) |- F
+T c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
++ |- ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a))))) a)
+T * / ! c= c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b1 cdrop b0 f0
+- |- ((?x'. (P x')) = ((P T) \/ (P F)))
+T c= c? / * f0 b0 c\/ * f0 cT * f0 cF
++ |- (((!f. (!y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s)))))) ==> ((\f. (!y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s)))))) f)) = ((\f. (!y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s)))))) f))
+T c= c==> ! ! ! c= chas_real_integral b0 b1 b2 chas_integral * * part co part clift * * part co b0 part cdrop clift b1 * * part cIMAGE part clift b2 * / ! ! c= chas_real_integral b0 b1 b2 chas_integral * * part co part clift * * part co b0 part cdrop clift b1 * * part cIMAGE part clift b2 f0 * / ! ! c= chas_real_integral b0 b1 b2 chas_integral * * part co part clift * * part co b0 part cdrop clift b1 * * part cIMAGE part clift b2 f0
++ |- (((?x'. (P x')) /\ Q) = (?x'. ((P x') /\ Q)))
+T c= c/\ c? / * f0 b0 f1 c? / c/\ * f0 b0 f1
++ |- (((!f. (!g. ((f o g) = (\x. (f (g x)))))) ==> ((\f. (!g. ((f o g) = (\x. (f (g x)))))) f)) = ((\f. (!g. ((f o g) = (\x. (f (g x)))))) f))
+T c= c==> ! ! c= * * part co b0 b1 / * b0 * b1 b2 * / ! c= * * part co b0 b1 / * b0 * b1 b2 f0 * / ! c= * * part co b0 b1 / * b0 * b1 b2 f0
++ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- (((!x'. ((~ (x = x')) \/ (~ (s x')))) ==> ((\x'. ((~ (x = x')) \/ (~ (s x')))) _2041733)) = ((\x'. ((~ (x = x')) \/ (~ (s x')))) _2041733))
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c= c==> ! c\/ c~ c= f0 b0 c~ * f1 b0 * / c\/ c~ c= f0 b0 c~ * f1 b0 f2 * / c\/ c~ c= f0 b0 c~ * f1 b0 f2
+- |- ((\t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) t3)
+T * / c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 f2
+- ((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) |- ((!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))
+T c==> c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL chas_integral f2 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 f1 cNIL
++ (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s)) |- (((IMAGE (f o g)) s) = ((IMAGE f) ((IMAGE g) s)))
+T c==> c= * * part cIMAGE f0 * * part cIMAGE f1 f2 * * part cIMAGE * * part co f0 f1 f2 c= * * part cIMAGE * * part co f0 f1 f2 * * part cIMAGE f0 * * part cIMAGE f1 f2
+- |- (((~ p) ==> p) = p)
+T c= c==> c~ f0 f0 f0
+- |- ((!x'. t) = t)
+T c= ! f0 f0
+- |- ((t ==> F) = (~ t))
+T c= c==> f0 cF c~ f0
++ |- ((s x) = ((x = x) /\ (s x)))
+T c= * f0 f1 c/\ c= f1 f1 * f0 f1
++ |- ((\g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s)))) g)
+T * / ! c= * * part cIMAGE f0 * * part cIMAGE b0 b1 * * part cIMAGE * * part co f0 b0 b1 f1
++ |- ((drop (lift x)) = x)
+T c= cdrop clift f0 f0
++ |- (p = ((~ p) ==> F))
+T c= f0 c==> c~ f0 cF
+- |- ((?x'. t) = t)
+T c= c? / f0 f0
++ |- ((\f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) f)
+T * / ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL f0
+- |- ((!x. ((?x'. ((x = x') /\ (s x'))) = (s x))) = T)
+T c= ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cT
++ |- ((!a. (!b. (((real_le b) a) ==> (((has_real_integral f) (real_of_num (NUMERAL _0))) (closed_real_interval ((CONS (a , b)) NIL)))))) = T)
+T c= ! ! c==> creal_le b1 b0 chas_real_integral f0 creal_of_num cNUMERAL c_0 * part cclosed_real_interval cCONS c, b0 b1 cNIL cT
+- |- ((?x''. ((x = x'') /\ (s x'))) = ((?x'. (x = x')) /\ (s x')))
+T c= c? / c/\ c= f0 b0 * f1 f2 c/\ c? / c= f0 b0 * f1 f2
++ |- ((!b. (((real_le b) a) ==> (((has_real_integral f) (real_of_num (NUMERAL _0))) (closed_real_interval ((CONS (a , b)) NIL))))) = T)
+T c= ! c==> creal_le b0 f0 chas_real_integral f1 creal_of_num cNUMERAL c_0 * part cclosed_real_interval cCONS c, f0 b0 cNIL cT
++ |- (((!x'. (((\x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) x') ==> F)) ==> ((?x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) ==> F)) = ((?x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) ==> F))
+T c= c==> ! c==> * / c\/ c/\ c/\ c= f0 b1 * f1 b1 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 b0 cF c==> c? / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 cF c==> c? / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 cF
+- |- (((!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) ==> (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))))) = (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))))
+T c= c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL
++ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- ((x = x) /\ (s x))
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c/\ c= f0 f0 * f1 f0
++ |- ((((has_integral (\x. (lift (f (drop x))))) (vec (NUMERAL _0))) ((IMAGE (\x. x)) (closed_interval ((CONS ((lift a) , (lift b))) NIL)))) = (((has_integral (lift o (f o drop))) (lift (real_of_num (NUMERAL _0)))) ((IMAGE lift) ((IMAGE drop) (closed_interval ((CONS ((lift a) , (lift b))) NIL))))))
+T c= chas_integral / clift * f0 cdrop b0 cvec cNUMERAL c_0 * * part cIMAGE / b0 * part cclosed_interval cCONS c, clift f1 clift f2 cNIL chas_integral * * part co part clift * * part co f0 part cdrop clift creal_of_num cNUMERAL c_0 * * part cIMAGE part clift * * part cIMAGE part cdrop * part cclosed_interval cCONS c, clift f1 clift f2 cNIL
+- ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) |- (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) /\ ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F))
+T c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c/\ c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
++ |- ((\n. ((lift (real_of_num n)) = (vec n))) n)
+T * / c= clift creal_of_num b0 cvec b0 f0
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))), ((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) |- ((!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) /\ (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c==> c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 c/\ ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL chas_integral f2 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 f1 cNIL
++ |- ((\f. (!g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s))))) f)
+T * / ! ! c= * * part cIMAGE b0 * * part cIMAGE b1 b2 * * part cIMAGE * * part co b0 b1 b2 f0
+- |- ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))
+T c= c\/ f0 c\/ f1 f2 c\/ c\/ f0 f1 f2
++ |- ((((\x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) x') ==> F) = T)
+T c= c==> * / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 f2 cF cT
++ |- ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a)))) b)
+T * / c= c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b0 cdrop f0 f1
++ |- ((((real_le b) a) ==> (((has_real_integral f) (real_of_num (NUMERAL _0))) (closed_real_interval ((CONS (a , b)) NIL)))) = T)
+T c= c==> creal_le f0 f1 chas_real_integral f2 creal_of_num cNUMERAL c_0 * part cclosed_real_interval cCONS c, f1 f0 cNIL cT
++ |- ((\f. (!g. ((f o g) = (\x. (f (g x)))))) f)
+T * / ! c= * * part co b0 b1 / * b0 * b1 b2 f0
+- |- ((\s. ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) s)
+T * / c==> c~ ! c= c? / c/\ c= b1 b2 * b0 b2 * b0 b1 cF f0
++ (((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) ==> F), ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x))) |- F
+T c==> c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 cF c==> c\/ c/\ c/\ c= f0 f2 * f1 f2 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 cF
+- |- ((_2041740 = _2041741) ==> ((s _2041741) \/ (~ (s _2041740))))
+T c==> c= f0 f1 c\/ * f2 f1 c~ * f2 f0
++ ((real_le b) a) |- (T = ((content (closed_interval ((CONS ((lift a) , (lift b))) NIL))) = (real_of_num (NUMERAL _0))))
+T c==> creal_le f0 f1 c= cT c= ccontent * part cclosed_interval cCONS c, clift f1 clift f0 cNIL creal_of_num cNUMERAL c_0
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))), ((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) |- (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) /\ (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c==> c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 c/\ c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 chas_integral f2 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 f1 cNIL
++ (((IMAGE (f o g)) s) = ((IMAGE f) ((IMAGE g) s))) |- (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s))
+T c==> c= * * part cIMAGE * * part co f0 f1 f2 * * part cIMAGE f0 * * part cIMAGE f1 f2 c= * * part cIMAGE f0 * * part cIMAGE f1 f2 * * part cIMAGE * * part co f0 f1 f2
+- |- ((\t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) t2)
+T * / ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 f1
+- |- ((!x'. ((P x') \/ Q)) = ((!x'. (P x')) \/ Q))
+T c= ! c\/ * f0 b0 f1 c\/ ! * f0 b0 f1
++ |- ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) b)
+T * / c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL f2
++ (~ ((?x'. ((x = x') /\ (s x'))) = (s x))) |- (((?x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) ==> F) = F)
+T c==> c~ c= c? / c/\ c= f0 b0 * f1 b0 * f1 f0 c= c==> c? / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 cF cF
+- (~ (s x')), (((x = x') /\ (s x')) /\ (~ (s x))) |- ((~ (s x')) /\ (s x'))
+T c==> c~ * f0 f1 c==> c/\ c/\ c= f2 f1 * f0 f1 c~ * f0 f2 c/\ c~ * f0 f1 * f0 f1
++ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- (((x = _2041733) /\ (s _2041733)) ==> F)
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c==> c/\ c= f0 f2 * f1 f2 cF
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) a)
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL * / ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL f1
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))), ((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) |- (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c==> c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 chas_integral f2 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 f1 cNIL
+- |- (((!s. ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) ==> ((\s. ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) s)) = ((\s. ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) s))
+T c= c==> ! c==> c~ ! c= c? / c/\ c= b1 b2 * b0 b2 * b0 b1 cF * / c==> c~ ! c= c? / c/\ c= b1 b2 * b0 b2 * b0 b1 cF f0 * / c==> c~ ! c= c? / c/\ c= b1 b2 * b0 b2 * b0 b1 cF f0
+- |- (((!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) ==> ((\t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) t2)) = ((\t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3)))) t2))
+T c= c==> ! ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 * / ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 f1 * / ! c= c\/ f0 c\/ b0 b1 c\/ c\/ f0 b0 b1 f1
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- ((((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))) = T)
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c= c==> c= ccontent * part cclosed_interval cCONS c, f0 f1 cNIL creal_of_num cNUMERAL c_0 chas_integral f2 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 f1 cNIL cT
++ |- (((?x'. ((x = x') /\ (s x'))) /\ (~ (s x))) = (?x'. (((x = x') /\ (s x')) /\ (~ (s x)))))
+T c= c/\ c? / c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c? / c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0
++ |- ((?x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) ==> F)
+T c==> c? / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 cF
++ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- (((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) /\ F)
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c/\ c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 cF
++ (((x = x') /\ (s x')) /\ (~ (s x))) |- (~ (s x'))
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c~ * f2 f1
+- (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) |- ((((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) /\ (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)))
+T c==> c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c/\ c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
++ (((x = x') /\ (s x')) /\ (~ (s x))) |- ((~ (s x)) = (~ (s x')))
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c= c~ * f2 f0 c~ * f2 f1
+- |- ((!x''. ((~ (x = x'')) \/ (~ (s x')))) = ((!x'. (~ (x = x'))) \/ (~ (s x'))))
+T c= ! c\/ c~ c= f0 b0 c~ * f1 f2 c\/ ! c~ c= f0 b0 c~ * f1 f2
+- |- ((x = x) = T)
+T c= c= f0 f0 cT
+- |- ((a ==> b) = ((~ a) \/ b))
+T c= c==> f0 f1 c\/ c~ f0 f1
++ |- ((\x. ((drop (lift x)) = x)) x)
+T * / c= cdrop clift b0 b0 f0
++ |- (((~ a) \/ (~ b)) = (~ (a /\ b)))
+T c= c\/ c~ f0 c~ f1 c~ c/\ f0 f1
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- ((!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) = T)
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c= ! ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL cT
+- |- (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) = (!x. ((?x'. ((x = x') /\ (s x'))) = (s x))))
+T c= c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0
+- |- ((((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) ==> (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)))
+T c==> c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
+- ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F), (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) |- (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) /\ ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F))
+T c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c/\ c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
+- (((x = x') /\ (s x')) /\ (~ (s x))) |- ((~ F) ==> F)
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c==> c~ cF cF
++ ((real_le b) a) |- (((real_le b) a) = T)
+T c==> creal_le f0 f1 c= creal_le f0 f1 cT
++ |- ((\x. ((lift (drop x)) = x)) x)
+T * / c= clift cdrop b0 b0 f0
+- (_2041740 = _2041741) |- ((_2041740 = _2041741) /\ ((s _2041741) \/ (~ (s _2041740))))
+T c==> c= f0 f1 c/\ c= f0 f1 c\/ * f2 f1 c~ * f2 f0
+- |- (((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F))
+T c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
+- ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- ((~ (s x)) ==> (s x))
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c==> c~ * f1 f0 * f1 f0
+- |- (((t1 \/ t2) \/ t3) = (t1 \/ (t2 \/ t3)))
+T c= c\/ c\/ f0 f1 f2 c\/ f0 c\/ f1 f2
++ |- (((~ ((?x'. ((x = x') /\ (s x'))) = (s x))) ==> F) = ((?x'. ((x = x') /\ (s x'))) = (s x)))
+T c= c==> c~ c= c? / c/\ c= f0 b0 * f1 b0 * f1 f0 cF c= c? / c/\ c= f0 b0 * f1 b0 * f1 f0
++ ((\x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) x') |- (((\x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) x') /\ F)
+T c==> * / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 f2 c/\ * / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 f2 cF
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL ! c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL
++ (((x = x') /\ (s x')) /\ (~ (s x))) |- (s x')
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 * f2 f1
++ |- (((!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a))))) ==> ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a))))) a)) = ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a))))) a))
+T c= c==> ! ! c= c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b1 cdrop b0 * / ! c= c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b1 cdrop b0 f0 * / ! c= c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b1 cdrop b0 f0
++ |- (!x. ((x IN ((IMAGE (\x. x)) s)) = (x IN s)))
+T c= cIN f0 * * part cIMAGE / b0 f1 cIN f0 f1
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) b)
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL * / c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL f2
++ (((x = x') /\ (s x')) /\ (~ (s x))) |- (((s x') ==> F) = F)
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c= c==> * f2 f1 cF cF
++ (((x = x') /\ (s x')) /\ (~ (s x))) |- (x = x')
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c= f0 f1
+- |- ((!x'. (P \/ (Q x'))) = (P \/ (!x'. (Q x'))))
+T c= ! c\/ f0 * f1 b0 c\/ f0 ! * f1 b0
+- |- (((!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) ==> ((\t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) t3)) = ((\t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) t3))
+T c= c==> ! c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 * / c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 f2 * / c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 f2
++ |- (((!f. (!g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s))))) ==> ((\f. (!g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s))))) f)) = ((\f. (!g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s))))) f))
+T c= c==> ! ! ! c= * * part cIMAGE b0 * * part cIMAGE b1 b2 * * part cIMAGE * * part co b0 b1 b2 * / ! ! c= * * part cIMAGE b0 * * part cIMAGE b1 b2 * * part cIMAGE * * part co b0 b1 b2 f0 * / ! ! c= * * part cIMAGE b0 * * part cIMAGE b1 b2 * * part cIMAGE * * part co b0 b1 b2 f0
+- ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) |- ((((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F))
+T c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
+- (~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) |- ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) /\ F)
+T c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 c/\ c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
+- |- ((t /\ t) = t)
+T c= c/\ f0 f0 f0
+- |- ((a = b) ==> (b \/ (~ a)))
+T c==> c= f0 f1 c\/ f1 c~ f0
+- |- ((!s. (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) = (!s. ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)))
+T c= ! ! c= c? / c/\ c= b1 b2 * b0 b2 * b0 b1 ! c==> c~ ! c= c? / c/\ c= b1 b2 * b0 b2 * b0 b1 cF
++ (~ ((?x'. ((x = x') /\ (s x'))) = (s x))) |- ((~ ((?x'. ((x = x') /\ (s x'))) = (s x))) /\ F)
+T c==> c~ c= c? / c/\ c= f0 b0 * f1 b0 * f1 f0 c/\ c~ c= c? / c/\ c= f0 b0 * f1 b0 * f1 f0 cF
++ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- ((\x'. ((~ (x = x')) \/ (~ (s x')))) _2041733)
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 * / c\/ c~ c= f0 b0 c~ * f1 b0 f2
++ |- ((\s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s)))) s)
+T * / c= chas_real_integral f0 f1 b0 chas_integral * * part co part clift * * part co f0 part cdrop clift f1 * * part cIMAGE part clift b0 f2
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- (((!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) ==> ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) a)) = ((\a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL)))))) a))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c= c==> ! ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL * / ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL f1 * / ! c==> c= ccontent * part cclosed_interval cCONS c, b0 b1 cNIL creal_of_num cNUMERAL c_0 chas_integral f0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b0 b1 cNIL f1
++ |- (((!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) ==> ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) b)) = ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) b))
+T c= c==> ! c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL * / c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL f2 * / c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL f2
++ |- ((closed_real_interval ((CONS (a , b)) NIL)) = ((IMAGE drop) (closed_interval ((CONS ((lift a) , (lift b))) NIL))))
+T c= * part cclosed_real_interval cCONS c, f0 f1 cNIL * * part cIMAGE part cdrop * part cclosed_interval cCONS c, clift f0 clift f1 cNIL
++ ((\x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) x') |- ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))
+T c==> * / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 f2 c\/ c/\ c/\ c= f0 f2 * f1 f2 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0
+- |- ((!x''. ((~ (x = x')) \/ (~ (s x'')))) = ((~ (x = x')) \/ (!x'. (~ (s x')))))
+T c= ! c\/ c~ c= f0 f1 c~ * f2 b0 c\/ c~ c= f0 f1 ! c~ * f2 b0
++ ((\x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) x') |- ((((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x))) ==> F) = F)
+T c==> * / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 f2 c= c==> c\/ c/\ c/\ c= f0 f2 * f1 f2 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 cF cF
++ |- (((!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a)))) ==> ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a)))) b)) = ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) = ((real_le (drop b)) (drop a)))) b))
+T c= c==> ! c= c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b0 cdrop f0 * / c= c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b0 cdrop f0 f1 * / c= c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 creal_le cdrop b0 cdrop f0 f1
++ |- ((\y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s))))) y)
+T * / ! c= chas_real_integral f0 b0 b1 chas_integral * * part co part clift * * part co f0 part cdrop clift b0 * * part cIMAGE part clift b1 f1
++ |- ((((has_integral (lift o (f o drop))) (lift (real_of_num (NUMERAL _0)))) ((IMAGE lift) ((IMAGE drop) (closed_interval ((CONS ((lift a) , (lift b))) NIL))))) = (((has_real_integral f) (real_of_num (NUMERAL _0))) (closed_real_interval ((CONS (a , b)) NIL))))
+T c= chas_integral * * part co part clift * * part co f0 part cdrop clift creal_of_num cNUMERAL c_0 * * part cIMAGE part clift * * part cIMAGE part cdrop * part cclosed_interval cCONS c, clift f1 clift f2 cNIL chas_real_integral f0 creal_of_num cNUMERAL c_0 * part cclosed_real_interval cCONS c, f1 f2 cNIL
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- ((!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) /\ (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c/\ ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL
+- |- ((((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F) ==> ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F)) = ((~ (!x. ((?x'. ((x = x') /\ (s x'))) = (s x)))) ==> F))
+T c= c==> c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF c==> c~ ! c= c? / c/\ c= b0 b1 * f0 b1 * f0 b0 cF
++ |- (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s))
+T c= * * part cIMAGE f0 * * part cIMAGE f1 f2 * * part cIMAGE * * part co f0 f1 f2
++ (((x = x') /\ (s x')) /\ (~ (s x))) |- ((((x = x') /\ (s x')) /\ (~ (s x))) /\ F)
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c/\ c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 cF
++ |- (((!g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s)))) ==> ((\g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s)))) g)) = ((\g. (!s. (((IMAGE f) ((IMAGE g) s)) = ((IMAGE (f o g)) s)))) g))
+T c= c==> ! ! c= * * part cIMAGE f0 * * part cIMAGE b0 b1 * * part cIMAGE * * part co f0 b0 b1 * / ! c= * * part cIMAGE f0 * * part cIMAGE b0 b1 * * part cIMAGE * * part co f0 b0 b1 f1 * / ! c= * * part cIMAGE f0 * * part cIMAGE b0 b1 * * part cIMAGE * * part co f0 b0 b1 f1
++ |- (((?x'. ((x = x') /\ (s x'))) = (s x)) = T)
+T c= c= c? / c/\ c= f0 b0 * f1 b0 * f1 f0 cT
+- |- ((!x. (P x)) = ((P T) /\ (P F)))
+T c= ! * f0 b0 c/\ * f0 cT * f0 cF
++ |- ((\g. ((f o g) = (\x. (f (g x))))) g)
+T * / c= * * part co f0 b0 / * f0 * b0 b1 f1
+- |- (((!t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) ==> ((\t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) t1)) = ((\t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) t1))
+T c= c==> ! ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 * / ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 f0 * / ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 f0
++ |- (((IMAGE (\x. x)) s) = s)
+T c= * * part cIMAGE / b0 f0 f0
++ |- (!x'. (((\x'. ((((x = x') /\ (s x')) /\ (~ (s x))) \/ ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)))) x') ==> F))
+T c==> * / c\/ c/\ c/\ c= f0 b0 * f1 b0 c~ * f1 f0 c/\ ! c\/ c~ c= f0 b1 c~ * f1 b1 * f1 f0 f2 cF
+- |- ((~ (~ t)) = t)
+T c= c~ c~ f0 f0
++ |- ((((x = x') /\ (s x')) /\ (~ (s x))) ==> F)
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 cF
+- |- ((!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) ==> (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL
++ ((real_le b) a) |- (((has_integral (\x. (lift (f (drop x))))) (vec (NUMERAL _0))) ((IMAGE (\x. x)) (closed_interval ((CONS ((lift a) , (lift b))) NIL))))
+T c==> creal_le f0 f1 chas_integral / clift * f2 cdrop b0 cvec cNUMERAL c_0 * * part cIMAGE / b0 * part cclosed_interval cCONS c, clift f1 clift f0 cNIL
+- (~ F), (((x = x') /\ (s x')) /\ (~ (s x))) |- ((~ F) /\ F)
+T c==> c~ cF c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c/\ c~ cF cF
++ |- (((!y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s))))) ==> ((\y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s))))) y)) = ((\y. (!s. ((((has_real_integral f) y) s) = (((has_integral (lift o (f o drop))) (lift y)) ((IMAGE lift) s))))) y))
+T c= c==> ! ! c= chas_real_integral f0 b0 b1 chas_integral * * part co part clift * * part co f0 part cdrop clift b0 * * part cIMAGE part clift b1 * / ! c= chas_real_integral f0 b0 b1 chas_integral * * part co part clift * * part co f0 part cdrop clift b0 * * part cIMAGE part clift b1 f1 * / ! c= chas_real_integral f0 b0 b1 chas_integral * * part co part clift * * part co f0 part cdrop clift b0 * * part cIMAGE part clift b1 f1
+- |- ((?x'. (P /\ (Q x'))) = (P /\ (?x'. (Q x'))))
+T c= c? / c/\ f0 * f1 b0 c/\ f0 c? / * f1 b0
+- |- (((\x. (f x)) y) = (f y))
+T c= * / * f0 b0 f1 * f0 f1
+- (_2041740 = _2041741) |- ((((s _2041740) = (s _2041741)) ==> ((s _2041741) \/ (~ (s _2041740)))) = ((s _2041741) \/ (~ (s _2041740))))
+T c==> c= f0 f1 c= c==> c= * f2 f0 * f2 f1 c\/ * f2 f1 c~ * f2 f0 c\/ * f2 f1 c~ * f2 f0
+- (~ (x = x)) |- ((~ (x = x)) /\ (x = x))
+T c==> c~ c= f0 f0 c/\ c~ c= f0 f0 c= f0 f0
+- |- ((~ (_2041740 = _2041741)) \/ ((s _2041741) \/ (~ (s _2041740))))
+T c\/ c~ c= f0 f1 c\/ * f2 f1 c~ * f2 f0
+- ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- ((~ F) ==> F)
+T c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c==> c~ cF cF
+- (~ F), ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- ((~ F) /\ F)
+T c==> c~ cF c==> c/\ ! c\/ c~ c= f0 b0 c~ * f1 b0 * f1 f0 c/\ c~ cF cF
+- (((x = x') /\ (s x')) /\ (~ (s x))) |- (F = F)
+T c==> c/\ c/\ c= f0 f1 * f2 f1 c~ * f2 f0 c= cF cF
+- |- ((?x'. ((P x') /\ Q)) = ((?x'. (P x')) /\ Q))
+T c= c? / c/\ * f0 b0 f1 c/\ c? / * f0 b0 f1
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- (((!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) ==> ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) b)) = ((\b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) b))
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c= c==> ! c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL * / c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL f2 * / c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL f2
+- (!f. (!a. (!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))))) |- ((!b. (((content (closed_interval ((CONS (a , b)) NIL))) = (real_of_num (NUMERAL _0))) ==> (((has_integral f) (vec (NUMERAL _0))) (closed_interval ((CONS (a , b)) NIL))))) = T)
+T c==> ! ! ! c==> c= ccontent * part cclosed_interval cCONS c, b1 b2 cNIL creal_of_num cNUMERAL c_0 chas_integral b0 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, b1 b2 cNIL c= ! c==> c= ccontent * part cclosed_interval cCONS c, f0 b0 cNIL creal_of_num cNUMERAL c_0 chas_integral f1 cvec cNUMERAL c_0 * part cclosed_interval cCONS c, f0 b0 cNIL cT
+- (~ (s x)), ((!x'. ((~ (x = x')) \/ (~ (s x')))) /\ (s x)) |- ((~ (s x)) /\ (s x))
+T c==> c~ * f0 f1 c==> c/\ ! c\/ c~ c= f1 b0 c~ * f0 b0 * f0 f1 c/\ c~ * f0 f1 * f0 f1

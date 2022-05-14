@@ -1,0 +1,100 @@
+N DIFFERENTIABLE_ON_NORM
+C |- (!s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((differentiable_on (\x. (lift (vector_norm x)))) s)))
+T c==> c~ cIN cvec cNUMERAL c_0 f0 cdifferentiable_on / clift cvector_norm b0 f0
+D TRUTH
+A |- T
+T cT
+D DIFFERENTIABLE_AT_IMP_DIFFERENTIABLE_ON
+A |- (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s))))
+T c==> ! c==> cIN b0 f0 cdifferentiable f1 cat b0 cdifferentiable_on f1 f0
+D DIFFERENTIABLE_NORM_AT
+A |- (!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a))))
+T c==> c~ c= f0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b0 cat f0
++ (x = (vec (NUMERAL _0))) |- ((x IN s) = ((vec (NUMERAL _0)) IN s))
+T c==> c= f0 cvec cNUMERAL c_0 c= cIN f0 f1 cIN cvec cNUMERAL c_0 f1
+- |- ((\t1. (!t2. (!t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))))) t1)
+T * / ! ! c= c\/ b0 c\/ b1 b2 c\/ c\/ b0 b1 b2 f0
++ |- ((\f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) f)
+T * / ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 f0
+- (!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))), (~ (a = (vec (NUMERAL _0)))) |- ((differentiable (\x. (lift (vector_norm x)))) (at a))
+T c==> ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 c==> c~ c= f0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b0 cat f0
+- (~ F), (~ ((vec (NUMERAL _0)) IN s)), (x = (vec (NUMERAL _0))), (x IN s) |- ((~ F) /\ F)
+T c==> c~ cF c==> c~ cIN cvec cNUMERAL c_0 f0 c==> c= f1 cvec cNUMERAL c_0 c==> cIN f1 f0 c/\ c~ cF cF
+- |- (((!s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F)))) ==> ((\s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F)))) s)) = ((\s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F)))) s))
+T c= c==> ! c==> c~ cIN cvec cNUMERAL c_0 b0 c==> cIN f0 b0 c==> c= f0 cvec cNUMERAL c_0 cF * / c==> c~ cIN cvec cNUMERAL c_0 b0 c==> cIN f0 b0 c==> c= f0 cvec cNUMERAL c_0 cF f1 * / c==> c~ cIN cvec cNUMERAL c_0 b0 c==> cIN f0 b0 c==> c= f0 cvec cNUMERAL c_0 cF f1
+- (!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))), (~ (a = (vec (NUMERAL _0)))) |- ((~ (a = (vec (NUMERAL _0)))) /\ ((differentiable (\x. (lift (vector_norm x)))) (at a)))
+T c==> ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 c==> c~ c= f0 cvec cNUMERAL c_0 c/\ c~ c= f0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b0 cat f0
+- (!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))), (~ (a = (vec (NUMERAL _0)))) |- ((!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))) /\ ((differentiable (\x. (lift (vector_norm x)))) (at a)))
+T c==> ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 c==> c~ c= f0 cvec cNUMERAL c_0 c/\ ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 cdifferentiable / clift cvector_norm b0 cat f0
+- |- ((t ==> t) = T)
+T c= c==> f0 f0 cT
+- |- ((\t3. ((t1 \/ (t2 \/ t3)) = ((t1 \/ t2) \/ t3))) t3)
+T * / c= c\/ f0 c\/ f1 b0 c\/ c\/ f0 f1 b0 f2
+- (!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))) |- (((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a))) = T)
+T c==> ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 c= c==> c~ c= f0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b0 cat f0 cT
+- (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) |- ((!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s))) = T)
+T c==> ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 c= ! c==> ! c==> cIN b1 b0 cdifferentiable f0 cat b1 cdifferentiable_on f0 b0 cT
+- |- (((~ p) ==> p) = p)
+T c= c==> c~ f0 f0 f0
+- (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) |- ((\f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) f)
+T c==> ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 * / ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 f0
+- |- ((!s. t) = t)
+T c= ! f0 f0
+- (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))), (!x. ((x IN s) ==> ((differentiable f) (at x)))) |- ((differentiable_on f) s)
+T c==> ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 c==> ! c==> cIN b0 f0 cdifferentiable f1 cat b0 cdifferentiable_on f1 f0
+- |- (((!x. (!s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))))) ==> ((\x. (!s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))))) x)) = ((\x. (!s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))))) x))
+T c= c==> ! ! c==> c~ cIN cvec cNUMERAL c_0 b1 c==> cIN b0 b1 c==> c= b0 cvec cNUMERAL c_0 cF * / ! c==> c~ cIN cvec cNUMERAL c_0 b1 c==> cIN b0 b1 c==> c= b0 cvec cNUMERAL c_0 cF f0 * / ! c==> c~ cIN cvec cNUMERAL c_0 b1 c==> cIN b0 b1 c==> c= b0 cvec cNUMERAL c_0 cF f0
++ |- ((t ==> F) = (~ t))
+T c= c==> f0 cF c~ f0
+- |- ((\x. (!s. ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))))) x)
+T * / ! c==> c~ cIN cvec cNUMERAL c_0 b1 c==> cIN b0 b1 c==> c= b0 cvec cNUMERAL c_0 cF f0
+- |- (((!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) ==> (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s))))) = (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))))
+T c= c==> ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1
+- |- ((!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) ==> (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))))
+T c==> ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1
+- |- ((((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))) ==> ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F)))) = ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))))
+T c= c==> c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF
+- (!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) |- (((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)) = T)
+T c==> ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 c= c==> ! c==> cIN b0 f0 cdifferentiable f1 cat b0 cdifferentiable_on f1 f0 cT
+- ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))), (((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))) ==> ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F)))) |- (((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))) /\ ((~ ((vec (NUMERAL _0)) IN s)) ==> ((x IN s) ==> ((x = (vec (NUMERAL _0))) ==> F))))
+T c==> c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF c==> c==> c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF c/\ c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c==> c= f1 cvec cNUMERAL c_0 cF
+- |- ((!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))) ==> (!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))))
+T c==> ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0
++ |- (((!a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))) ==> ((\a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))) a)) = ((\a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))) a))
+T c= c==> ! c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 * / c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 f0 * / c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 f0
++ (~ ((vec (NUMERAL _0)) IN s)) |- (((!x. ((x IN s) ==> ((differentiable (\x. (lift (vector_norm x)))) (at x)))) ==> ((differentiable_on (\x. (lift (vector_norm x)))) s)) = ((differentiable_on (\x. (lift (vector_norm x)))) s))
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c= c==> ! c==> cIN b0 f0 cdifferentiable / clift cvector_norm b1 cat b0 cdifferentiable_on / clift cvector_norm b0 f0 cdifferentiable_on / clift cvector_norm b0 f0
++ (~ ((vec (NUMERAL _0)) IN s)) |- ((~ ((vec (NUMERAL _0)) IN s)) /\ ((differentiable_on (\x. (lift (vector_norm x)))) s))
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c/\ c~ cIN cvec cNUMERAL c_0 f0 cdifferentiable_on / clift cvector_norm b0 f0
++ |- (((!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s))) ==> ((\s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s))) s)) = ((\s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s))) s))
+T c= c==> ! c==> ! c==> cIN b1 b0 cdifferentiable f0 cat b1 cdifferentiable_on f0 b0 * / c==> ! c==> cIN b1 b0 cdifferentiable f0 cat b1 cdifferentiable_on f0 b0 f1 * / c==> ! c==> cIN b1 b0 cdifferentiable f0 cat b1 cdifferentiable_on f0 b0 f1
++ (~ ((vec (NUMERAL _0)) IN s)) |- (((vec (NUMERAL _0)) IN s) ==> F)
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN cvec cNUMERAL c_0 f0 cF
++ (~ ((vec (NUMERAL _0)) IN s)), (x IN s) |- (((~ (x = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at x))) = ((differentiable (\x. (lift (vector_norm x)))) (at x)))
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c= c==> c~ c= f1 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b0 cat f1 cdifferentiable / clift cvector_norm b0 cat f1
++ |- ((\s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s))) s)
+T * / c==> ! c==> cIN b1 b0 cdifferentiable f0 cat b1 cdifferentiable_on f0 b0 f1
++ (x = (vec (NUMERAL _0))), (x IN s) |- ((((vec (NUMERAL _0)) IN s) ==> F) = F)
+T c==> c= f0 cvec cNUMERAL c_0 c==> cIN f0 f1 c= c==> cIN cvec cNUMERAL c_0 f1 cF cF
++ (~ ((vec (NUMERAL _0)) IN s)) |- (((x IN s) ==> ((differentiable (\x. (lift (vector_norm x)))) (at x))) = T)
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c= c==> cIN f1 f0 cdifferentiable / clift cvector_norm b0 cat f1 cT
++ (~ ((vec (NUMERAL _0)) IN s)) |- (!x. ((x IN s) ==> ((differentiable (\x. (lift (vector_norm x)))) (at x))))
+T c==> c~ cIN cvec cNUMERAL c_0 f0 ! c==> cIN b0 f0 cdifferentiable / clift cvector_norm b1 cat b0
++ |- (((~ ((vec (NUMERAL _0)) IN s)) ==> ((differentiable_on (\x. (lift (vector_norm x)))) s)) = T)
+T c= c==> c~ cIN cvec cNUMERAL c_0 f0 cdifferentiable_on / clift cvector_norm b0 f0 cT
++ (~ ((vec (NUMERAL _0)) IN s)), (x = (vec (NUMERAL _0))), (x IN s) |- F
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c==> c= f1 cvec cNUMERAL c_0 c==> cIN f1 f0 cF
++ (~ ((vec (NUMERAL _0)) IN s)), (x IN s) |- ((x IN s) /\ ((differentiable (\x. (lift (vector_norm x)))) (at x)))
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 c/\ cIN f1 f0 cdifferentiable / clift cvector_norm b0 cat f1
++ |- ((\a. ((~ (a = (vec (NUMERAL _0)))) ==> ((differentiable (\x. (lift (vector_norm x)))) (at a)))) a)
+T * / c==> c~ c= b0 cvec cNUMERAL c_0 cdifferentiable / clift cvector_norm b1 cat b0 f0
++ |- (((!f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) ==> ((\f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) f)) = ((\f. (!s. ((!x. ((x IN s) ==> ((differentiable f) (at x)))) ==> ((differentiable_on f) s)))) f))
+T c= c==> ! ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 * / ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 f0 * / ! c==> ! c==> cIN b2 b1 cdifferentiable b0 cat b2 cdifferentiable_on b0 b1 f0
++ (~ ((vec (NUMERAL _0)) IN s)) |- ((x IN s) ==> ((differentiable (\x. (lift (vector_norm x)))) (at x)))
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c==> cIN f1 f0 cdifferentiable / clift cvector_norm b0 cat f1
++ (~ ((vec (NUMERAL _0)) IN s)), (x = (vec (NUMERAL _0))), (x IN s) |- ((x = (vec (NUMERAL _0))) /\ F)
+T c==> c~ cIN cvec cNUMERAL c_0 f0 c==> c= f1 cvec cNUMERAL c_0 c==> cIN f1 f0 c/\ c= f1 cvec cNUMERAL c_0 cF
++ (x = (vec (NUMERAL _0))), (x IN s) |- ((vec (NUMERAL _0)) IN s)
+T c==> c= f0 cvec cNUMERAL c_0 c==> cIN f0 f1 cIN cvec cNUMERAL c_0 f1
++ |- ((~ p) = (p ==> F))
+T c= c~ f0 c==> f0 cF
